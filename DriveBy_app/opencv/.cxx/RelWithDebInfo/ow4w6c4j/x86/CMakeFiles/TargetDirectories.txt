@@ -1,3 +1,0 @@
-/Users/robertklein/Desktop/Test/opencv/.cxx/RelWithDebInfo/ow4w6c4j/x86/CMakeFiles/rebuild_cache.dir
-/Users/robertklein/Desktop/Test/opencv/.cxx/RelWithDebInfo/ow4w6c4j/x86/CMakeFiles/edit_cache.dir
-/Users/robertklein/Desktop/Test/opencv/.cxx/RelWithDebInfo/ow4w6c4j/x86/CMakeFiles/opencv_jni_shared.dir
