@@ -1,0 +1,128 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 21 min SDK version: x86",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1612239999
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86/android_gradle_build.json due to:",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1020834094
+  },
+  {
+    "level_": 0,
+    "message_": "- expected json /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86/android_gradle_build.json file is not present, will remove stale json folder",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -70440368
+  },
+  {
+    "level_": 0,
+    "message_": "- missing previous command file /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86/metadata_generation_command.txt, will remove stale json folder",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1564459470
+  },
+  {
+    "level_": 0,
+    "message_": "- command changed from previous, will remove stale json folder",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 848889629
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86\u0027",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 689503761
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake Executable : /Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/cmake\narguments : \n-H/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d21\n-DANDROID_PLATFORM\u003dandroid-21\n-DANDROID_ABI\u003dx86\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_ANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003d/Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/ninja\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86\n-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\n-B/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86\n-GNinja\n-DANDROID_STL\u003dc++_shared\njvmArgs : \n\n",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2041104551
+  },
+  {
+    "level_": 0,
+    "message_": "Executable : /Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/cmake\narguments : \n-H/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d21\n-DANDROID_PLATFORM\u003dandroid-21\n-DANDROID_ABI\u003dx86\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86\n-DANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_ANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003d/Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/ninja\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86\n-DCMAKE_BUILD_TYPE\u003dRelWithDebInfo\n-B/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86\n-GNinja\n-DANDROID_STL\u003dc++_shared\njvmArgs : \n\n",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1059236838
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed with problem. Exception: Build command failed.\nError while executing process /Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/cmake with arguments {-H/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper -DCMAKE_SYSTEM_NAME\u003dAndroid -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON -DCMAKE_SYSTEM_VERSION\u003d21 -DANDROID_PLATFORM\u003dandroid-21 -DANDROID_ABI\u003dx86 -DCMAKE_ANDROID_ARCH_ABI\u003dx86 -DANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529 -DCMAKE_ANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529 -DCMAKE_TOOLCHAIN_FILE\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM\u003d/Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/ninja -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/RelWithDebInfo/155h2u62/obj/x86 -DCMAKE_BUILD_TYPE\u003dRelWithDebInfo -B/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/RelWithDebInfo/155h2u62/x86 -GNinja -DANDROID_STL\u003dc++_shared}\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Configuring done\n\nCMake Warning (dev) in CMakeLists.txt:\n  No project() command is present.  The top-level CMakeLists.txt file must\n  contain a literal, direct call to the project() command.  Add a line of\n  code such as\n\n    project(ProjectName)\n\n  near the top of the file, but after cmake_minimum_required().\n\n  CMake is pretending there is a \"project(Project)\" command on the first\n  line.\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nCMake Error at CMakeLists.txt:4 (add_library):\n  Cannot find source file:\n\n    dummy.cpp\n\n  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm\n  .hpp .hxx .in .txx\n\n\nCMake Error at CMakeLists.txt:4 (add_library):\n  No SOURCES given to target: opencv_jni_shared\n\n\nCMake Generate step failed.  Build files cannot be regenerated correctly.\n",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "release|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1149928701
+  }
+]
