@@ -11,7 +11,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -517390546
+    "memoizedHashCode": -1600444803
   },
   {
     "level_": 0,
@@ -25,7 +25,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -1943260198
+    "memoizedHashCode": 1268652841
   },
   {
     "level_": 0,
@@ -39,21 +39,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -2044509526
-  },
-  {
-    "level_": 0,
-    "message_": "- missing previous command file /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/Debug/6vzw6x4g/x86/metadata_generation_command.txt, will remove stale json folder",
-    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
-    "tag_": "debug|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": -886460152
+    "memoizedHashCode": 1167403513
   },
   {
     "level_": 0,
@@ -67,7 +53,21 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 1943739082
+    "memoizedHashCode": 860684825
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/Debug/6vzw6x4g/x86\u0027",
+    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|x86",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 304380178
   },
   {
     "level_": 0,
@@ -81,7 +81,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 348756175
+    "memoizedHashCode": -734298082
   },
   {
     "level_": 0,
@@ -95,7 +95,7 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -806653368
+    "memoizedHashCode": -1889707625
   },
   {
     "level_": 0,
@@ -109,11 +109,11 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": 1375832327
+    "memoizedHashCode": 292778070
   },
   {
     "level_": 0,
-    "message_": "Exiting generation of /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/Debug/6vzw6x4g/x86/compile_commands.json.bin normally",
+    "message_": "JSON generation completed with problem. Exception: Build command failed.\nError while executing process /Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/cmake with arguments {-H/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper -DCMAKE_SYSTEM_NAME\u003dAndroid -DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON -DCMAKE_SYSTEM_VERSION\u003d21 -DANDROID_PLATFORM\u003dandroid-21 -DANDROID_ABI\u003dx86 -DCMAKE_ANDROID_ARCH_ABI\u003dx86 -DANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529 -DCMAKE_ANDROID_NDK\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529 -DCMAKE_TOOLCHAIN_FILE\u003d/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM\u003d/Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/ninja -DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/Debug/6vzw6x4g/obj/x86 -DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/build/intermediates/cxx/Debug/6vzw6x4g/obj/x86 -DCMAKE_BUILD_TYPE\u003dDebug -B/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/Debug/6vzw6x4g/x86 -GNinja -DANDROID_STL\u003dc++_shared}\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Configuring done\n\nCMake Warning (dev) in CMakeLists.txt:\n  No project() command is present.  The top-level CMakeLists.txt file must\n  contain a literal, direct call to the project() command.  Add a line of\n  code such as\n\n    project(ProjectName)\n\n  near the top of the file, but after cmake_minimum_required().\n\n  CMake is pretending there is a \"project(Project)\" command on the first\n  line.\nThis warning is for project developers.  Use -Wno-dev to suppress it.\n\nCMake Error at CMakeLists.txt:4 (add_library):\n  Cannot find source file:\n\n    dummy.cpp\n\n  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm\n  .hpp .hxx .in .txx\n\n\nCMake Error at CMakeLists.txt:4 (add_library):\n  No SOURCES given to target: opencv_jni_shared\n\n\nCMake Generate step failed.  Build files cannot be regenerated correctly.\n",
     "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
     "tag_": "debug|x86",
     "diagnosticCode_": 0,
@@ -123,48 +123,6 @@
       "fieldsDescending": {}
     },
     "memoizedSize": -1,
-    "memoizedHashCode": -2117233644
-  },
-  {
-    "level_": 0,
-    "message_": "done executing cmake",
-    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
-    "tag_": "debug|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 1631392831
-  },
-  {
-    "level_": 0,
-    "message_": "write command file /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/.cxx/Debug/6vzw6x4g/x86/metadata_generation_command.txt",
-    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
-    "tag_": "debug|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": 70286094
-  },
-  {
-    "level_": 0,
-    "message_": "JSON generation completed without problems",
-    "file_": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/openvc/libcxx_helper/CMakeLists.txt",
-    "tag_": "debug|x86",
-    "diagnosticCode_": 0,
-    "memoizedIsInitialized": 1,
-    "unknownFields": {
-      "fields": {},
-      "fieldsDescending": {}
-    },
-    "memoizedSize": -1,
-    "memoizedHashCode": -725501381
+    "memoizedHashCode": 412216709
   }
 ]

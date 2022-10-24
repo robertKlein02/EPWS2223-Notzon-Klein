@@ -11,3 +11,17 @@ CMake Warning (dev) in CMakeLists.txt:
   line.
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
+CMake Error at CMakeLists.txt:4 (add_library):
+  Cannot find source file:
+
+    dummy.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
+  .hpp .hxx .in .txx
+
+
+CMake Error at CMakeLists.txt:4 (add_library):
+  No SOURCES given to target: opencv_jni_shared
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
