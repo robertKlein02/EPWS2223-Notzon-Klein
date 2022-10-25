@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DriveBy.iml" filepath="$PROJECT_DIR$/.idea/modules/DriveBy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DriveBy.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DriveBy.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DriveBy.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DriveBy.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DriveBy.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DriveBy.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DriveBy.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DriveBy.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.main.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/opencv/DriveBy.opencv.unitTest.iml" />
+    </modules>
+  </component>
+</project>
