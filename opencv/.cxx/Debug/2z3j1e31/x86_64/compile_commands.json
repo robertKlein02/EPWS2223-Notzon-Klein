@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/opencv/.cxx/Debug/2z3j1e31/x86_64",
+  "command": "/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=x86_64-none-linux-android21 --gcc-toolchain=/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/robertklein/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o -c /Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/opencv/libcxx_helper/dummy.cpp",
+  "file": "/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/opencv/libcxx_helper/dummy.cpp"
+}
+]

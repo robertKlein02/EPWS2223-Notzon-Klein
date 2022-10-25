@@ -1,0 +1,122 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.driveby"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:6:5-81
+11-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:6:22-62
+12
+13    <uses-feature
+13-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:8:5-84
+14        android:name="android.hardware.camera"
+14-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:8:19-57
+15        android:required="false" />
+15-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:8:58-82
+16    <uses-feature
+16-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:9:5-94
+17        android:name="android.hardware.camera.autofocus"
+17-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:9:19-67
+18        android:required="false" />
+18-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:9:68-92
+19    <uses-feature
+19-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:10:5-90
+20        android:name="android.hardware.camera.front"
+20-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:10:19-63
+21        android:required="false" />
+21-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:10:64-88
+22    <uses-feature
+22-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:11:5-100
+23        android:name="android.hardware.camera.front.autofocus"
+23-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:11:19-73
+24        android:required="false" />
+24-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:11:74-98
+25
+26    <permission
+26-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+27        android:name="com.example.driveby.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+27-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+28        android:protectionLevel="signature" />
+28-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+29
+30    <uses-permission android:name="com.example.driveby.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+30-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+30-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+31
+32    <application
+32-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:15:5-36:19
+33        android:name="com.example.driveby.MyApplication"
+33-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:24:9-38
+34        android:allowBackup="true"
+34-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:16:9-35
+35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+35-->[androidx.core:core:1.9.0] /Users/robertklein/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+36        android:dataExtractionRules="@xml/data_extraction_rules"
+36-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:17:9-65
+37        android:debuggable="true"
+38        android:fullBackupContent="@xml/backup_rules"
+38-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:18:9-54
+39        android:icon="@mipmap/ic_launcher"
+39-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:19:9-43
+40        android:label="@string/app_name"
+40-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:20:9-41
+41        android:roundIcon="@mipmap/ic_launcher_round"
+41-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:21:9-54
+42        android:supportsRtl="true"
+42-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:22:9-35
+43        android:testOnly="true"
+44        android:theme="@style/Theme.DriveBy" >
+44-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:23:9-45
+45        tools:targetApi="31">
+46        <activity
+46-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:26:9-34:20
+47            android:name="com.example.driveby.MainActivity"
+47-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:27:13-41
+48            android:exported="true" >
+48-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:28:13-36
+49            <intent-filter>
+49-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:29:13-33:29
+50                <action android:name="android.intent.action.MAIN" />
+50-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:30:17-69
+50-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:30:25-66
+51
+52                <category android:name="android.intent.category.LAUNCHER" />
+52-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:32:17-77
+52-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:32:27-74
+53            </intent-filter>
+54        </activity>
+55        <activity android:name="com.example.opencvlearning.demo.DetectorActivity" />
+55-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:35:9-84
+55-->/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/app/src/main/AndroidManifest.xml:35:19-82
+56
+57        <provider
+57-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+58            android:name="androidx.startup.InitializationProvider"
+58-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+59            android:authorities="com.example.driveby.androidx-startup"
+59-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+60            android:exported="false" >
+60-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+61            <meta-data
+61-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+62                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+62-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+63                android:value="androidx.startup" />
+63-->[androidx.emoji2:emoji2:1.2.0] /Users/robertklein/.gradle/caches/transforms-3/8646fc24a05f0f3fb603801ddeb6af39/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+64            <meta-data
+64-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/robertklein/.gradle/caches/transforms-3/a12ed9220754cce2dddf3ed6d58bf3a3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+65                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+65-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/robertklein/.gradle/caches/transforms-3/a12ed9220754cce2dddf3ed6d58bf3a3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+66                android:value="androidx.startup" />
+66-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/robertklein/.gradle/caches/transforms-3/a12ed9220754cce2dddf3ed6d58bf3a3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+67        </provider>
+68    </application>
+69
+70</manifest>

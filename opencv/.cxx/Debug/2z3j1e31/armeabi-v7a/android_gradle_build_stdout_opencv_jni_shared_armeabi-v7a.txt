@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/opencv/.cxx/Debug/2z3j1e31/armeabi-v7a'
+ninja: no work to do.
