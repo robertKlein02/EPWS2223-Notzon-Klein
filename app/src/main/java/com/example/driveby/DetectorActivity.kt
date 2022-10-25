@@ -1,4 +1,4 @@
-package com.example.opencvlearning.demo
+package com.example.driveby
 
 import android.os.Bundle
 import android.view.View
@@ -22,7 +22,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
 
+        mOpenCvCameraView.setMaxFrameSize(1000,1000)
+
+
     }
+
 
     override fun onCameraViewStarted(width: Int, height: Int) {
 
