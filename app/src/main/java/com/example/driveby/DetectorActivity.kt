@@ -21,9 +21,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.visibility = View.VISIBLE
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
-
         mOpenCvCameraView.setMaxFrameSize(1000,1000)
-
 
     }
 
