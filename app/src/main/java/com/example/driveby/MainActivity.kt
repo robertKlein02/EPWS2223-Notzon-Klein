@@ -14,8 +14,6 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
 
-
-
 private const val CAMERA_REQUEST_CODE=101
 
 class MainActivity : AppCompatActivity() {
@@ -28,9 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
             startActivity(Intent(this, DetectorActivity::class.java))
-
-
-
         }
     }
 
@@ -39,9 +34,7 @@ class MainActivity : AppCompatActivity() {
     * Ab hier Funktionen für den Start
     *
     * */
-
-
-    // Freigabe anfragen für Camera
+    // Freigabe anfragen für Kamera
     private fun setupPermission(){
         val permission = ContextCompat.checkSelfPermission(this,
             android.Manifest.permission.CAMERA)

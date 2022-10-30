@@ -18,6 +18,7 @@ out/
 # release/
 
 # Gradle files
+.DS_Store
 .gradle/
 build/
 app/build/

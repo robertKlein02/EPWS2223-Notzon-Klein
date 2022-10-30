@@ -6,3 +6,5 @@
 82	156	1666704172	libopencv_jni_shared.a	54950cbfda90a710
 0	131	1666708994	CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o	1aa8d443585e8b04
 131	247	1666708994	libopencv_jni_shared.a	54950cbfda90a710
+1	100	1666967162	CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o	1aa8d443585e8b04
+100	185	1666967162	libopencv_jni_shared.a	54950cbfda90a710

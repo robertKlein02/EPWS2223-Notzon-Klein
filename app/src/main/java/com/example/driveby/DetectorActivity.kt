@@ -28,6 +28,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     override fun onCameraViewStarted(width: Int, height: Int) {
 
+
     }
 
     override fun onCameraViewStopped() {
@@ -35,6 +36,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraFrame(inputFrame: CameraBridgeViewBase.CvCameraViewFrame?): Mat {
+        // Aufruf jeder einzelen Frames
+
+        println()
+
+
         return inputFrame!!.rgba()
     }
 
