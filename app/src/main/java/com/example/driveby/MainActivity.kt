@@ -50,22 +50,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            CAMERA_REQUEST_CODE-> {
-                if (grantResults.isEmpty()|| grantResults[0]!= PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this,"Kamera freigeben", Toast.LENGTH_SHORT)
-                }else{
-                    println("test")
-                }
-            }
-        }
-    }
+
 
 
     fun makeGray(bitmap: Bitmap) : Bitmap {
