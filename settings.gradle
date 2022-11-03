@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 rootProject.name = "DriveBy"
 include ':app'
 include ':opencv'
-include ':app2'

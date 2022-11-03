@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveby.MyApplication.Companion.TAG
+import kotlinx.coroutines.runBlocking
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
@@ -50,9 +51,17 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
+        var test:Mat?
+            test= cirleSuchen(inputFrame)
+
+        return test
+    }
+
+
+    fun cirleSuchen(inputFrame: CvCameraViewFrame): Mat?{
         val input = inputFrame.gray()
         val circles = Mat()
-        Imgproc.blur(input, input, Size(7.0, 7.0), Point(2.0, 2.0))
+        Imgproc.blur(input, input, Size(7.0, 7.0), Point(0.0, 0.0))
         Imgproc.HoughCircles(
             input,
             circles,
@@ -61,12 +70,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             100.0,
             100.0,
             90.0,
-            0,
-            1000
+            5,
+            100
         )
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
+
+
         if (circles.cols() > 0) {
-            for (x in 0 until Math.min(circles.cols(), 5)) {
+            for (x in 0 until Math.min(circles.cols(), 1)) {
                 val circleVec = circles[0, x] ?: break
                 val center = Point(
                     circleVec[0].toInt().toDouble(),
@@ -81,4 +92,5 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         input.release()
         return inputFrame.rgba()
     }
+
 }
