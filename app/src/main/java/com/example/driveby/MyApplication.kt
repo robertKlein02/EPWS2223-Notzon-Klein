@@ -17,6 +17,7 @@ class MyApplication : Application() {
     }
 
 
+
     private val mLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
             when (status) {
