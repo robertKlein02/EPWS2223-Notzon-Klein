@@ -37,12 +37,12 @@ class MainActivity : AppCompatActivity() , LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupPermission()
         val button: Button = findViewById(R.id.getLocation)
         button.setOnClickListener {
             getLocation()
         }
 
-        setupPermission()
 
 
 
@@ -78,12 +78,13 @@ class MainActivity : AppCompatActivity() , LocationListener {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if ((ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION), locationPermissionCode)
+        }else{
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
     }
     override fun onLocationChanged(location: Location) {
         tvGpsLocation = findViewById(R.id.textView)
-        tvGpsLocation.text = "Latitude: " + location.latitude + " , Longitude: " + location.longitude
+        tvGpsLocation.text = "B: " + location.latitude + " , L: " + location.longitude
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -96,23 +97,5 @@ class MainActivity : AppCompatActivity() , LocationListener {
             }
         }
     }
-
-
-    fun makeGray(bitmap: Bitmap) : Bitmap {
-
-        // Create OpenCV mat object and copy content from bitmap
-        val mat = Mat()
-        Utils.bitmapToMat(bitmap, mat)
-
-        // Convert to grayscale
-        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY)
-
-        // Make a mutable bitmap to copy grayscale image
-        val grayBitmap = bitmap.copy(bitmap.config, true)
-        Utils.matToBitmap(mat, grayBitmap)
-
-        return grayBitmap
-    }
-
 
 }
