@@ -73,7 +73,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         )
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
 
-
         if (circles.cols() > 0) {
             for (x in 0 until Math.min(circles.cols(), 1)) {
                 val circleVec = circles[0, x] ?: break

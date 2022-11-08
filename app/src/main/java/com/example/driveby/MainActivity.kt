@@ -43,20 +43,19 @@ class MainActivity : AppCompatActivity() , LocationListener {
             getLocation()
         }
 
-
-
-
-
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
             startActivity(Intent(this, DetectorActivity::class.java))
         }
     }
 
-    /*
+
+    /*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     *
-    * Ab hier Funktionen für den Start
+    *  Ab hier Funktionen
     *
-    * */
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
     // Freigabe anfragen für Kamera
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setupPermission(){
@@ -74,6 +73,8 @@ class MainActivity : AppCompatActivity() , LocationListener {
         )
     }
 
+
+    // Freigabe für Location and start LocationListener
     private fun getLocation() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if ((ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
