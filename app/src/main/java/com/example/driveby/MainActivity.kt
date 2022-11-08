@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() , LocationListener {
         val button: Button = findViewById(R.id.getLocation)
         button.setOnClickListener {
             getLocation()
+
         }
 
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
@@ -83,6 +84,8 @@ class MainActivity : AppCompatActivity() , LocationListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
         }
     }
+
+
     override fun onLocationChanged(location: Location) {
         tvGpsLocation = findViewById(R.id.textView)
         tvGpsLocation.text = "B: " + location.latitude + " , L: " + location.longitude
