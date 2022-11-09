@@ -34,4 +34,5 @@ Als Bibliothek soll OpenCV benutzt werden, um eine Schildererkennung möglich zu
 - Handy am Steuer: Wann darf die App benutzt werden
 </br>
 
+### Für weiter Informationen siehe Wiki!
 
