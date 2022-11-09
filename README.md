@@ -27,11 +27,14 @@ Das Smartphone, welches in der Windschutzscheibe befestigt ist, soll durch seine
 </br>
 Als Bibliothek soll OpenCV benutzt werden, um eine Schildererkennung möglich zu machen. Sie App wird mit Android Studio und Kotlin geschrieben und die Datenbank mit Firebase.
 </br>
+
 </br>
+
 <b>Proble</b>, die dabei auftreten sind:
 - Straßenverkehrsregeln: z.B. aufheben der Geschwindigkeit nach einer Kreuzung Innerorts
 - Rechtslage: Die Aufnahme des Straßenverkehrs durch eine Kamera
 - Handy am Steuer: Wann darf die App benutzt werden
+
 </br>
 
 ### Für weiter Informationen siehe Wiki!
