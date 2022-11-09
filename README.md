@@ -1,6 +1,7 @@
 # EPWS2223-Notzon-Al_Dakhel_Allah-Klein
 Expose von: Roua Al Dakhel Allah, Jonas Notzon, Robert Klein </br>
 </br>
+### Für weiter Informationen siehe Wiki!
 </br>
 <b>Zielsetzung:</b> 
 </br>
