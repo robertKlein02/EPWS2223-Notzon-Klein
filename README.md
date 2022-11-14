@@ -1,5 +1,5 @@
 # EPWS2223-Notzon-Al_Dakhel_Allah-Klein
-Expose von: Roua Al Dakhel Allah, Jonas Notzon, Robert Klein </br>
+Expose von: Jonas Notzon, Robert Klein </br>
 </br>
 ### Für weiter Informationen siehe **[Wiki](https://github.com/robertKlein02/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/wiki)** !
 
