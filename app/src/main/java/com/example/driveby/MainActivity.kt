@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
 
 import org.opencv.android.Utils
 import org.opencv.core.Mat
@@ -28,6 +29,8 @@ private const val CAMERA_REQUEST_CODE=101
 
 class MainActivity : AppCompatActivity() , LocationListener {
 
+
+
     private lateinit var tvGpsLocation: TextView
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
@@ -36,6 +39,10 @@ class MainActivity : AppCompatActivity() , LocationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val viewModel=Viewmodel()
+
+
 
         setupPermission()
         val button: Button = findViewById(R.id.getLocation)

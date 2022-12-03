@@ -26,6 +26,7 @@
         android:theme="@style/Theme.DriveBy"
         android:name=".MyApplication"
         tools:targetApi="31">
+        <service android:name="com.example.driveby.SpeedSensor" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

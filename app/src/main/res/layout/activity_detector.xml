@@ -17,4 +17,18 @@
         opencv:camera_id="back"
         opencv:show_fps="true" />
 
+    <TextView
+        android:id="@+id/speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="90"
+        android:text="TextView"
+        android:textColor="@color/red"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/HelloOpenCvView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/HelloOpenCvView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
