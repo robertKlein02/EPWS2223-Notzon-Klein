@@ -26,9 +26,9 @@
         android:theme="@style/Theme.DriveBy"
         android:name=".MyApplication"
         tools:targetApi="31">
-        <service android:name="com.example.driveby.SpeedSensor" />
+        <service android:name="com.example.driveby.sensor.SpeedSensor" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetectorActivity"/>
+        <activity android:name=".view.DetectorActivity"/>
     </application>
 
 </manifest>

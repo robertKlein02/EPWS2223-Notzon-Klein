@@ -1,18 +1,23 @@
-package com.example.driveby
+package com.example.driveby.view
 
 
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Camera
 import android.os.Bundle
 import android.util.Log
-import android.view.TextureView
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.driveby.MyApplication.Companion.TAG
+import com.example.driveby.R
+import com.example.driveby.Viewmodel
+import com.example.driveby.receiver.Receiver
+import com.example.driveby.sensor.SpeedSensor
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
@@ -23,8 +28,8 @@ import org.opencv.imgproc.Imgproc
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
-
-    var viewmodel=Viewmodel()
+    private var viewmodel= Viewmodel()
+    private val isConnected:MutableLiveData<Double> = viewmodel.speed
 
 
 
@@ -47,8 +52,16 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         speedTextView=findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
 
-        var i =Intent(this,SpeedSensor::class.java)
+        var i =Intent(this, SpeedSensor::class.java)
         startService(i)
+
+        isConnected.observe(this, Observer {
+            newSpeed ->
+            isConnected.postValue(newSpeed)
+            speedTextView.text=newSpeed.toString()
+
+        })
+
 
 
 
@@ -56,11 +69,12 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onDestroy() {
-        var i =Intent(this,SpeedSensor::class.java)
+        var i =Intent(this, SpeedSensor::class.java)
         stopService(i)
         super.onDestroy()
 
     }
+
 
 
     override fun onCameraViewStarted(width: Int, height: Int) {
@@ -73,8 +87,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         var test:Mat?
             test= cirleSuchenUndUmkreisen(inputFrame)
-        println(viewmodel.speed.value)
-        runOnUiThread {  speedTextView?.setText(viewmodel?.speed?.value.toString()) }
+
+
 
 
 

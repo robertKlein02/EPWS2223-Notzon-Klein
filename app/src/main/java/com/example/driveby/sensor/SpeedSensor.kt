@@ -1,4 +1,4 @@
-package com.example.driveby
+package com.example.driveby.sensor
 
 import android.app.Service
 import android.content.Intent

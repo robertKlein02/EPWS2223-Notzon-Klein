@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class Viewmodel:ViewModel() {
 
     private val _speed : MutableLiveData<Double> = MutableLiveData<Double>()
-    var speed : LiveData<Double> = _speed
+    var speed : MutableLiveData<Double> = _speed
 
     init {
         setSpeed(0.0)

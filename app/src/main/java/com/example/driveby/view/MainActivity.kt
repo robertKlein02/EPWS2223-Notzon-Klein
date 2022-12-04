@@ -1,4 +1,4 @@
-package com.example.driveby
+package com.example.driveby.view
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
@@ -19,6 +19,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
+import com.example.driveby.R
+import com.example.driveby.Viewmodel
 
 import org.opencv.android.Utils
 import org.opencv.core.Mat
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() , LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel=Viewmodel()
+        val viewModel= Viewmodel()
 
 
 

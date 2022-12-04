@@ -1,8 +1,9 @@
-package com.example.driveby
+package com.example.driveby.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.example.driveby.Viewmodel
 import java.util.*
 
 class Receiver(val viewModel: Viewmodel): BroadcastReceiver() {
