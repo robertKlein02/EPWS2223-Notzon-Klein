@@ -37,7 +37,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.DetectorActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Design.NoActionBar"
+            >
         </activity>
     </application>
 

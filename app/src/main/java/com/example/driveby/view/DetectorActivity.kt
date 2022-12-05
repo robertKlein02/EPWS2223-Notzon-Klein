@@ -23,6 +23,7 @@ import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
+import java.security.Provider.Service
 
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
@@ -50,6 +51,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
 
+
         speedTextView=findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
 
@@ -63,7 +65,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         isConnected.observe(this, Observer {
             newSpeed ->
             isConnected.postValue(newSpeed)
-            speedTextView.text=newSpeed.toString()
+            speedTextView.text="$newSpeed  km/h"
 
         })
 
@@ -96,9 +98,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         var test:Mat?
+
             test= cirleSuchenUndUmkreisen(inputFrame)
-
-
 
 
 
@@ -107,19 +108,20 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
     fun cirleSuchenUndUmkreisen(inputFrame: CvCameraViewFrame): Mat?{
-        val input = inputFrame.gray()
+        val inputGrey = inputFrame.gray()
+        val inputRGB = inputFrame.rgba()
         val circles = Mat()
-        Imgproc.blur(input, input, Size(1.0, 1.0), Point(0.0, 0.0))
+        Imgproc.blur(inputGrey, inputGrey, Size(5.0, 5.0), Point(3.0, 3.0))
         Imgproc.HoughCircles(
-            input,
+            inputGrey,
             circles,
             Imgproc.CV_HOUGH_GRADIENT,
-            1.0,
-            60.0,
-            200.0,
-            20.0,
-            30,
-            100
+            2.0,
+            1000.0,
+            175.0,
+            120.0,
+            25,
+            125
         )
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
 
@@ -132,12 +134,12 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 )
                 val radius = circleVec[2].toInt()
               //  Imgproc.circle(input, center, 3, Scalar(255.0, 255.0, 255.0), -1)
-                Imgproc.circle(input, center, radius, Scalar(255.0, 255.0, 255.0), 2)
+                Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
             }
         }
         circles.release()
-        input.release()
-        return inputFrame.rgba()
+        inputGrey.release()
+        return inputRGB
     }
 
 }
