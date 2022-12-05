@@ -30,6 +30,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var speedTextView:TextView
     private var viewmodel= Viewmodel()
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
+    private var speedSensorIstActive:Boolean=false
 
 
 
@@ -53,7 +54,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         speedTextView.setText(viewmodel.speed.value.toString())
 
         var i =Intent(this, SpeedSensor::class.java)
-        startService(i)
+        if (!speedSensorIstActive){
+            startService(i)
+            speedSensorIstActive=true
+        }
+
 
         isConnected.observe(this, Observer {
             newSpeed ->
@@ -69,11 +74,16 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onDestroy() {
-        var i =Intent(this, SpeedSensor::class.java)
-        stopService(i)
         super.onDestroy()
+        var i =Intent(this, SpeedSensor::class.java)
+        if (speedSensorIstActive){
+            stopService(i)
+            speedSensorIstActive=false
+        }
 
     }
+
+
 
 
 

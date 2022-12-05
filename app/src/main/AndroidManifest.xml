@@ -36,7 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.DetectorActivity"/>
+        <activity android:name=".view.DetectorActivity"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>

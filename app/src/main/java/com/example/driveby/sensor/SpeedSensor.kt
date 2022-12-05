@@ -55,6 +55,8 @@ class SpeedSensor:Service() {
             lastLocation.set(location)
             lastTime = System.currentTimeMillis()
 
+
+
             val intent = Intent("testSpeed")
             intent.putExtra("speed", speed)
             LocalBroadcastManager.getInstance(this@SpeedSensor).sendBroadcast(intent)
@@ -80,7 +82,6 @@ class SpeedSensor:Service() {
     }
 
     override fun onCreate() {
-        Toast.makeText(this, "Start: Speedsensor", Toast.LENGTH_SHORT).show()
         initializeLocationManager()
 
         try {
@@ -91,12 +92,7 @@ class SpeedSensor:Service() {
                 LOCATION_DISTANCE.toFloat(),
                 locationListeners[0]
             )
-            locationManager!!.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
-                LOCATION_INTERVAL.toLong(),
-                LOCATION_DISTANCE.toFloat(),
-                locationListeners[1]
-            )
+
 
 
         } catch (ex: SecurityException) {
@@ -138,7 +134,7 @@ class SpeedSensor:Service() {
 
     companion object {
         private const val TAG = "LocationService"
-        private const val LOCATION_INTERVAL = 1500
+        private const val LOCATION_INTERVAL = 500
         private const val LOCATION_DISTANCE = 0
     }
 

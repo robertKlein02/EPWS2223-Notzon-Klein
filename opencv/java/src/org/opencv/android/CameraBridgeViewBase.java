@@ -119,7 +119,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
      * then displayed on the screen.
      * @param frame - the current frame to be delivered
      */
-    protected void deliverAndDrawFrame(CvCameraViewFrame frame) { //replaces existing deliverAndDrawFrame
+    protected void deliverAndDrawFrame(CvCameraViewFrame frame) {
         Mat modified;
 
         if (mListener != null) {
@@ -144,8 +144,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             Canvas canvas = getHolder().lockCanvas();
             if (canvas != null) {
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
-                int saveCount = canvas.save();
-                canvas.setMatrix(mMatrix);
+                if (BuildConfig.DEBUG)
+                    Log.d(TAG, "mStretch value: " + mScale);
 
                 if (mScale != 0) {
                     canvas.drawBitmap(mCacheBitmap, new Rect(0,0,mCacheBitmap.getWidth(), mCacheBitmap.getHeight()),
@@ -161,9 +161,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
                                     (canvas.getHeight() - mCacheBitmap.getHeight()) / 2 + mCacheBitmap.getHeight()), null);
                 }
 
-                //Restore canvas after draw bitmap
-                canvas.restoreToCount(saveCount);
-
                 if (mFpsMeter != null) {
                     mFpsMeter.measure();
                     mFpsMeter.draw(canvas, 20, 30);
@@ -172,7 +169,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             }
         }
     }
-
     public CameraBridgeViewBase(Context context, AttributeSet attrs) {
         super(context, attrs);
 

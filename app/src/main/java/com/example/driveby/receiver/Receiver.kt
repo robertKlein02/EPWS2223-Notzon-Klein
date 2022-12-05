@@ -11,6 +11,7 @@ class Receiver(val viewModel: Viewmodel): BroadcastReceiver() {
         val speed = Objects.requireNonNull(intent.extras)?.getDouble("speed")
 
         if (speed != null) {
+            println(speed)
             viewModel.setSpeed(speed)
         }
 

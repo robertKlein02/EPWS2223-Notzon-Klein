@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.example.driveby.R
-import com.example.driveby.Viewmodel
 
 import org.opencv.android.Utils
 import org.opencv.core.Mat
@@ -29,7 +28,7 @@ import org.opencv.imgproc.Imgproc
 
 private const val CAMERA_REQUEST_CODE=101
 
-class MainActivity : AppCompatActivity() , LocationListener {
+class MainActivity : AppCompatActivity()  {
 
 
 
@@ -42,16 +41,10 @@ class MainActivity : AppCompatActivity() , LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel= Viewmodel()
+        getLocation()
 
 
 
-        setupPermission()
-        val button: Button = findViewById(R.id.getLocation)
-        button.setOnClickListener {
-            getLocation()
-
-        }
 
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
             startActivity(Intent(this, DetectorActivity::class.java))
@@ -87,28 +80,19 @@ class MainActivity : AppCompatActivity() , LocationListener {
     // Freigabe für Location and start LocationListener
     private fun getLocation() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION), locationPermissionCode)
-        }else{
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+        if ((ContextCompat.checkSelfPermission(
+                this,
+                ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED)
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(ACCESS_FINE_LOCATION),
+                locationPermissionCode
+            )
         }
     }
 
 
-    override fun onLocationChanged(location: Location) {
-        tvGpsLocation = findViewById(R.id.textView)
-        tvGpsLocation.text = "B: " + location.latitude + " , L: " + location.longitude
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == locationPermissionCode) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
 }
