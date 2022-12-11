@@ -134,6 +134,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 )
                 val radius = circleVec[2].toInt()
               //  Imgproc.circle(input, center, 3, Scalar(255.0, 255.0, 255.0), -1)
+
                 Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
             }
         }

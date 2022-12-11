@@ -47,7 +47,7 @@ class SpeedSensor:Service() {
             Log.i(TAG, "onLocationChanged: ZEITDIFF: $timeDiff   DISTANZ: $distance")
 
 
-            speed =floor(distance / timeDiff * 3600 * 10) / 10  // durch/mal 10 um genauere werte zu erhalten
+            speed =floor(distance / timeDiff * 3600 * 10) / 10 
 
 
 
@@ -92,6 +92,13 @@ class SpeedSensor:Service() {
                 LOCATION_DISTANCE.toFloat(),
                 locationListeners[0]
             )
+            locationManager!!.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                LOCATION_INTERVAL.toLong(),
+                LOCATION_DISTANCE.toFloat(),
+                locationListeners[1]
+
+            )
 
 
 
@@ -134,7 +141,7 @@ class SpeedSensor:Service() {
 
     companion object {
         private const val TAG = "LocationService"
-        private const val LOCATION_INTERVAL = 500
+        private const val LOCATION_INTERVAL = 1500
         private const val LOCATION_DISTANCE = 0
     }
 
