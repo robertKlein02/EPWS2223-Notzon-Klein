@@ -1,5 +1,6 @@
 package com.example.driveby.view
 
+import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.Intent
@@ -26,31 +27,40 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
 
-private const val CAMERA_REQUEST_CODE=101
+private const val CAMERA_PRE=101
+private const val GPS_PRE = 2
 
 class MainActivity : AppCompatActivity()  {
 
 
 
-    private lateinit var tvGpsLocation: TextView
-    private lateinit var locationManager: LocationManager
-    private val locationPermissionCode = 2
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        getLocation()
-        setupPermission()
+
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
+            startActivity(Intent(this, DetectorActivity::class.java))
+        }
 
 
 
 
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
-            startActivity(Intent(this, DetectorActivity::class.java))
+            if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED){
+                checkPremission(Manifest.permission.CAMERA,101)
+            }
+            if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_DENIED){
+                checkPremission(Manifest.permission.ACCESS_FINE_LOCATION,2)
+            }else{
+                startActivity(Intent(this, DetectorActivity::class.java))
+            }
         }
     }
+
 
 
     /*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -59,41 +69,38 @@ class MainActivity : AppCompatActivity()  {
     *
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+    fun checkPremission(premisson:String,requestCode:Int){
 
-    // Freigabe anfragen für Kamera
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun setupPermission(){
-        val permission = ContextCompat.checkSelfPermission(this,
-            android.Manifest.permission.CAMERA)
+        if(ContextCompat.checkSelfPermission(this,premisson)==PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, arrayOf(premisson),requestCode)
+        }else{
+            Toast.makeText(this,"Permission ist granted",Toast.LENGTH_SHORT).show()
+        }
 
-        if (permission!= PackageManager.PERMISSION_GRANTED){
-            makeRequest()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode== GPS_PRE){
+            if (grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this,"Location permission Granted",Toast.LENGTH_SHORT).show()
+                this.recreate()
+            }else{
+            //    Toast.makeText(this,"Location permission Denied",Toast.LENGTH_SHORT).show()
+            }
+        }else if(requestCode== CAMERA_PRE){
+            if (grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this,"Camera permission Granted",Toast.LENGTH_SHORT).show()
+                this.recreate()
+            }else{
+          //      Toast.makeText(this,"Camera permission Denied",Toast.LENGTH_SHORT).show()
+            }
         }
     }
-    private fun makeRequest() {
-        ActivityCompat.requestPermissions(this,
-            arrayOf(android.Manifest.permission.CAMERA),
-            CAMERA_REQUEST_CODE
-        )
-    }
-
-
-    // Freigabe für Location and start LocationListener
-    private fun getLocation() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(
-                this,
-                ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED)
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(ACCESS_FINE_LOCATION),
-                locationPermissionCode
-            )
-        }
-    }
-
 
 
 }

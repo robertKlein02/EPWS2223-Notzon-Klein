@@ -9,7 +9,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -21,12 +20,15 @@ import com.example.driveby.sensor.SpeedSensor
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
-import org.opencv.core.*
+import org.opencv.core.Mat
+import org.opencv.core.Point
+import org.opencv.core.Scalar
+import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
-import java.security.Provider.Service
 
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
+
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
     private var viewmodel= Viewmodel()
@@ -34,8 +36,12 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private var speedSensorIstActive:Boolean=false
 
 
-
-
+    override fun onBackPressed() {
+        val a = Intent(Intent.ACTION_MAIN)
+        a.addCategory(Intent.CATEGORY_HOME)
+        a.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(a)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,6 +130,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             125
         )
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
+
+
 
         if (circles.cols() > 0) {
             for (x in 0 until Math.min(circles.cols(), 1)) {
