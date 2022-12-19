@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -41,14 +42,25 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_main)
 
 
+        // Überspringen wenn permission true ist
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
             startActivity(Intent(this, DetectorActivity::class.java))
         }
 
 
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+            findViewById<TextView>(R.id.Location).setTextColor(Color.GREEN)
+            checkPremission(Manifest.permission.CAMERA,101)
+        }
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
+            findViewById<TextView>(R.id.Camera).setTextColor(Color.GREEN)
+            checkPremission(Manifest.permission.ACCESS_FINE_LOCATION,2)
+        }
 
 
+
+        // Permission muss gegeben sein
         findViewById<AppCompatButton>(R.id.bt_hello).setOnClickListener(){
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED){
                 checkPremission(Manifest.permission.CAMERA,101)
