@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -25,9 +26,17 @@ import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Semaphore
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
+import org.opencv.dnn.TextDetectionModel
+import org.opencv.dnn.TextRecognitionModel
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
@@ -36,15 +45,21 @@ import kotlin.math.abs
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
+
     private var bm: Bitmap? = null
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
     private var viewmodel= Viewmodel()
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
     private var speedSensorIstActive:Boolean=false
-    private lateinit var zeichenBereuch: Rect
-    private lateinit var textRecognizer: TextRecognizer
+    private lateinit var zeichenBereich: Rect
+
+    private lateinit var textOpen: TextDetectionModel
+    private lateinit var textLeser: TextRecognizer
     private lateinit var objRecognizer: ObjectDetector
+    var s= Semaphore(1)
+
+
     private var analyzeIsBusy = false
 
     override fun onBackPressed() {
@@ -60,10 +75,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_detector)
 
+
         LocalBroadcastManager.getInstance(this).registerReceiver(Receiver(viewmodel), IntentFilter("testSpeed"))
 
-        textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+
+        textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         objRecognizer= ObjectDetection.getClient(ObjectDetectorOptions.DEFAULT_OPTIONS)
+
 
         mOpenCvCameraView = findViewById(R.id.HelloOpenCvView)
         mOpenCvCameraView.setCameraPermissionGranted()
@@ -88,11 +107,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             speedTextView.text="$newSpeed  km/h"
 
         })
-
-
-
-
-
     }
 
     override fun onDestroy() {
@@ -103,14 +117,12 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             stopService(i)
             speedSensorIstActive=false
         }
-
     }
 
 
 
+    override fun onCameraViewStarted(w: Int, h: Int) {
 
-
-    override fun onCameraViewStarted(width: Int, height: Int) {
     }
 
     override fun onCameraViewStopped() {
@@ -118,17 +130,19 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
-        
+        var mat: Mat? =null
 
-        if (analyzeIsBusy)return inputFrame.rgba()
-        else return cirleSuchenUndUmkreisen(inputFrame)
 
+        mat= cirleSuchenUndUmkreisen(inputFrame)
+
+        return mat
     }
 
 
 
 
-    fun cirleSuchenUndUmkreisen(inputFrame: CvCameraViewFrame): Mat?{
+    fun cirleSuchenUndUmkreisen(inputFrame: CvCameraViewFrame): Mat {
+
         val inputGrey = inputFrame.gray()
         val inputRGB = inputFrame.rgba()
         val circles = Mat()
@@ -157,15 +171,18 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
                 val rectSideVal = radius * 2 + 20
 
-                zeichenBereuch = Rect(
+                zeichenBereich = Rect(
                     (center.x - radius - 10).toInt(),
                     (center.y - radius - 10).toInt(), rectSideVal, rectSideVal
                 )
                 Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
-                if (!analyzeIsBusy) kreisLesen(inputRGB,zeichenBereuch,radius)
+
+                cricleRead(inputRGB,zeichenBereich,radius)
+
                 circles.release()
             }
         }
+
         circles.release()
         return inputRGB
     }
@@ -174,43 +191,57 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private var signSpeed = ""
 
 
-    private fun kreisLesen(img: Mat?, roi: Rect?, radius: Int) {
-        val runnable = Runnable {
-            analyzeIsBusy = true
+    private fun cricleRead(img: Mat?, roi: Rect?, radius: Int) {
+
+        val t = Thread {
+            analyzeIsBusy=true
             val copy: Mat
             try {
                 copy = Mat(img, roi)
+
                 // bimap mit der size des schildes erstelleb
+
                 bm = Bitmap.createBitmap(
                     abs(radius * 2 + 20),
                     abs(radius * 2 + 20),
-                    Bitmap.Config.ARGB_8888
-                )
+                    Bitmap.Config.ARGB_8888)
+
                 Utils.matToBitmap(copy, bm)
+
             } catch (e: Exception) {
                 bm = null
             }
             if (bm != null) {
                 val image = InputImage.fromBitmap(bm!!, 0)
-                textRecognizer.process(image)
+
+
+                textLeser.process(image)
                     .addOnSuccessListener { visionText ->
                         for (block in visionText.textBlocks) {
                             if (signSpeed != block.text) {
                                 signSpeed = block.text
-
-                                if (signSpeed=="30") println("ddhjfgsdkasdfbhsadhfgskafdghxdsiawöofhlsioöadghkuiljsaoösfgkuhigkzdhilsafgkuzihlsdafgukzhileafgsdkzxdilhaefgkszd")
-
+                                if (signSpeed=="10") println("10 KM/H")
+                                if (signSpeed=="20") println("20 KM/H")
+                                if (signSpeed=="30") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit30)
+                                if (signSpeed=="40") println("40 KM/H")
+                                if (signSpeed=="50") println("50 KM/H")
+                                if (signSpeed=="60") println("60 KM/H")
+                                if (signSpeed=="70") println("70 KM/H")
+                                if (signSpeed=="80") println("80 KM/H")
+                                if (signSpeed=="90") println("90 KM/H")
+                                if (signSpeed=="100") println("100 KM/H")
 
                             }
                         }
                     }
             }
-            analyzeIsBusy = false
         }
-        if (!analyzeIsBusy) {
-            val textDetectionThread = Thread(runnable)
-            textDetectionThread.run()
-        }
-    }
 
+
+        val textThread = Thread(t)
+        textThread.start()
+        analyzeIsBusy=false
+    }
 }
+
+
