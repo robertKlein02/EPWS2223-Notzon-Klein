@@ -39,14 +39,27 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation project(path: ':opencv')
     implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
+    //OpenCV
+    implementation project(path: ':opencv')
+    
+    //MLKit
     implementation 'com.google.mlkit:object-detection:17.0.0'
     implementation 'com.google.mlkit:object-detection-custom:17.0.0'
+
+    //Image labeling
+    implementation 'com.google.mlkit:image-labeling:17.0.7'
+    implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.8'
+
+
+    //Location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // Text
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
+
 }

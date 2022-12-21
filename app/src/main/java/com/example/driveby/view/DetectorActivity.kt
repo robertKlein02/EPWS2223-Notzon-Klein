@@ -26,17 +26,13 @@ import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Runnable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.sync.Semaphore
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.dnn.TextDetectionModel
-import org.opencv.dnn.TextRecognitionModel
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
+import com.google.mlkit.vision.label.ImageLabeler
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
@@ -60,7 +56,9 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
-    private lateinit var objRecognizer: ObjectDetector
+    private lateinit var objRecognizer: ImageLabelerOptions
+    private lateinit var labeler: ImageLabeler
+
 
 
     private var analyzeIsBusy = false
@@ -81,11 +79,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(Receiver(viewmodel), IntentFilter("testSpeed"))
 
-
-
         textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-        objRecognizer= ObjectDetection.getClient(ObjectDetectorOptions.DEFAULT_OPTIONS)
-
+        labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
         mOpenCvCameraView = findViewById(R.id.HelloOpenCvView)
         mOpenCvCameraView.setCameraPermissionGranted()
@@ -204,6 +199,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     private fun cricleRead(img: Mat?, roi: Rect?, radius: Int) {
 
+
+
         val t = Thread {
             analyzeIsBusy=true
             val copy: Mat
@@ -226,8 +223,16 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 val image = InputImage.fromBitmap(bm!!, 0)
 
 
-                textLeser.process(image)
-                    .addOnSuccessListener { visionText ->
+                // zeigt alle label vom Kreisinhalt
+                labeler.process(image)
+                    .addOnSuccessListener { objRec ->
+                        for (i in objRec){
+                            println(i.text)
+                        }
+                    }
+
+
+                textLeser.process(image).addOnSuccessListener { visionText ->
                         for (block in visionText.textBlocks) {
                             if (signSpeed != block.text) {
                                 signSpeed = block.text
@@ -241,7 +246,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                                 if (signSpeed=="80") println("80 KM/H")
                                 if (signSpeed=="90") println("90 KM/H")
                                 if (signSpeed=="100") println("100 KM/H")
-
                             }
                         }
                     }
