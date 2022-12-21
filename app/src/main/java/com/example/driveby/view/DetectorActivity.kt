@@ -87,6 +87,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.visibility = View.VISIBLE
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
+        mOpenCvCameraView.enableFpsMeter()
+        mOpenCvCameraView.setMaxFrameSize(1200,600)
 
 
         speedTextView=findViewById(R.id.speed)
@@ -197,8 +199,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private fun cricleRead(img: Mat?, roi: Rect?, radius: Int) {
 
 
-
         val t = Thread {
+
             analyzeIsBusy=true
             val copy: Mat
             try {
@@ -230,21 +232,22 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
                 textLeser.process(image).addOnSuccessListener { visionText ->
+                    var image = findViewById<ImageView>(R.id.imageView)
                         for (block in visionText.textBlocks) {
                             if (signSpeed != block.text) {
                                 signSpeed = block.text
-                                if (signSpeed=="10") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit10)
-                                if (signSpeed=="20") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit20)
-                                if (signSpeed=="30") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit30)
-                                if (signSpeed=="40") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit40)
-                                if (signSpeed=="50") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit50)
-                                if (signSpeed=="60") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit60)
-                                if (signSpeed=="70") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit70)
-                                if (signSpeed=="80") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit80)
-                                if (signSpeed=="90") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit90)
-                                if (signSpeed=="100") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit100)
-                                if (signSpeed=="110") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit110)
-                                if (signSpeed=="120") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit120)
+                                if (signSpeed=="10") image.setImageResource(R.drawable.limit10)
+                                if (signSpeed=="20") image.setImageResource(R.drawable.limit20)
+                                if (signSpeed=="30") image.setImageResource(R.drawable.limit30)
+                                if (signSpeed=="40") image.setImageResource(R.drawable.limit40)
+                                if (signSpeed=="50") image.setImageResource(R.drawable.limit50)
+                                if (signSpeed=="60") image.setImageResource(R.drawable.limit60)
+                                if (signSpeed=="70") image.setImageResource(R.drawable.limit70)
+                                if (signSpeed=="80") image.setImageResource(R.drawable.limit80)
+                                if (signSpeed=="90") image.setImageResource(R.drawable.limit90)
+                                if (signSpeed=="100") image.setImageResource(R.drawable.limit100)
+                                if (signSpeed=="110") image.setImageResource(R.drawable.limit110)
+                                if (signSpeed=="120") image.setImageResource(R.drawable.limit120)
                             }
                         }
                     }
