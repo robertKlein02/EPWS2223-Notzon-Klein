@@ -31,7 +31,7 @@ Als Bibliothek soll OpenCV benutzt werden, um eine Schildererkennung möglich zu
 
 </br>
 
-<b>Proble</b>, die dabei auftreten sind:
+<b>Probleme</b>, die dabei auftreten sind:
 - Straßenverkehrsregeln: z.B. aufheben der Geschwindigkeit nach einer Kreuzung Innerorts
 - Rechtslage: Die Aufnahme des Straßenverkehrs durch eine Kamera
 - Handy am Steuer: Wann darf die App benutzt werden
