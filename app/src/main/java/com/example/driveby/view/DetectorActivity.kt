@@ -45,7 +45,11 @@ import kotlin.math.abs
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
-
+    private var rows = 0
+    private var cols = 0
+    private var left = 0
+    private var width = 0
+    private var top = 0.0
     private var bm: Bitmap? = null
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
@@ -57,7 +61,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
     private lateinit var objRecognizer: ObjectDetector
-    var s= Semaphore(1)
 
 
     private var analyzeIsBusy = false
@@ -122,6 +125,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
     override fun onCameraViewStarted(w: Int, h: Int) {
+        rows = h
+        cols = w
+        left = rows / 8
+        width = cols - left
+        top = rows / 2.5
 
     }
 
@@ -146,7 +154,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         val inputGrey = inputFrame.gray()
         val inputRGB = inputFrame.rgba()
         val circles = Mat()
+
         Imgproc.blur(inputGrey, inputGrey, Size(5.0, 5.0), Point(3.0, 3.0))
+        Imgproc.GaussianBlur(inputRGB, inputRGB, Size(5.0, 5.0), 3.0)
+
         Imgproc.HoughCircles(
             inputGrey,
             circles,
@@ -220,7 +231,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                         for (block in visionText.textBlocks) {
                             if (signSpeed != block.text) {
                                 signSpeed = block.text
-                                if (signSpeed=="10") println("10 KM/H")
+                                if (signSpeed=="10") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit10)
                                 if (signSpeed=="20") println("20 KM/H")
                                 if (signSpeed=="30") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit30)
                                 if (signSpeed=="40") println("40 KM/H")
