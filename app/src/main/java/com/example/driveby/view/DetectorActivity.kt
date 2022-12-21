@@ -134,8 +134,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         var mat: Mat? =null
-
-
         mat= cirleSuchenUndUmkreisen(inputFrame)
 
         return mat
@@ -188,7 +186,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 circles.release()
             }
         }
-
         circles.release()
         return inputRGB
     }
@@ -237,15 +234,17 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                             if (signSpeed != block.text) {
                                 signSpeed = block.text
                                 if (signSpeed=="10") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit10)
-                                if (signSpeed=="20") println("20 KM/H")
+                                if (signSpeed=="20") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit20)
                                 if (signSpeed=="30") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit30)
-                                if (signSpeed=="40") println("40 KM/H")
-                                if (signSpeed=="50") println("50 KM/H")
-                                if (signSpeed=="60") println("60 KM/H")
-                                if (signSpeed=="70") println("70 KM/H")
-                                if (signSpeed=="80") println("80 KM/H")
-                                if (signSpeed=="90") println("90 KM/H")
-                                if (signSpeed=="100") println("100 KM/H")
+                                if (signSpeed=="40") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit40)
+                                if (signSpeed=="50") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit50)
+                                if (signSpeed=="60") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit60)
+                                if (signSpeed=="70") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit70)
+                                if (signSpeed=="80") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit80)
+                                if (signSpeed=="90") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit90)
+                                if (signSpeed=="100") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit100)
+                                if (signSpeed=="110") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit110)
+                                if (signSpeed=="120") findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.limit120)
                             }
                         }
                     }
