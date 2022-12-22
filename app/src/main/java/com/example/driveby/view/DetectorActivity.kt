@@ -41,11 +41,7 @@ import kotlin.math.abs
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
-    private var rows = 0
-    private var cols = 0
-    private var left = 0
-    private var width = 0
-    private var top = 0.0
+
     private var bm: Bitmap? = null
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
@@ -56,8 +52,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
-    private lateinit var objRecognizer: ImageLabelerOptions
+    private lateinit var objRecognizer: ObjectDetector
     private lateinit var labeler: ImageLabeler
+
+
 
 
 
@@ -122,11 +120,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
     override fun onCameraViewStarted(w: Int, h: Int) {
-        rows = h
-        cols = w
-        left = rows / 8
-        width = cols - left
-        top = rows / 2.5
+
 
     }
 
@@ -175,11 +169,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 )
                 val radius = circleVec[2].toInt()
 
-                val rectSideVal = radius * 2 + 20
+                val rectSideVal = radius * 2
 
                 zeichenBereich = Rect(
-                    (center.x - radius - 10).toInt(),
-                    (center.y - radius - 10).toInt(), rectSideVal, rectSideVal
+                    (center.x - radius ).toInt(),
+                    (center.y - radius ).toInt(), rectSideVal, rectSideVal
                 )
                 Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
 
@@ -193,14 +187,154 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
 
-    private var signSpeed = ""
 
+
+    private var signSpeedMybe = "0"
+    private var signSpeedNow = "0"
+
+    // Sicherheits Funktion
+    fun speedSet(int: Int){
+        var image = findViewById<ImageView>(R.id.imageView)
+        var speedtoInt = signSpeedNow.toInt()
+
+        if (int==10) {
+            if (signSpeedNow.toInt()==0) {
+                image.setImageResource(R.drawable.limit10)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit10)
+            }
+        }
+
+        if (int==20) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit20)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit20)
+            }
+        }
+
+        if (int==30) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit30)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit30)
+            }
+        }
+
+        if (int==40) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit40)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit40)
+            }
+        }
+
+        if (int==50) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit50)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit50)
+            }
+        }
+
+        if (int==60) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit60)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit60)
+            }
+        }
+
+        if (int==70) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit70)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit70)
+            }
+        }
+
+        if (int==80) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit80)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit80)
+            }
+        }
+
+        if (int==90) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit90)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit90)
+            }
+        }
+
+        if (int==100) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit100)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit100)
+            }
+        }
+
+        if (int==110) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit110)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit110)
+            }
+        }
+
+        if (int==120) {
+            if (signSpeedNow.toInt()==0){
+                image.setImageResource(R.drawable.limit120)
+                signSpeedNow="$int"
+            }
+            if (abs( speedtoInt-int)<50){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit120)
+            }
+        }
+
+    }
 
     private fun cricleRead(img: Mat?, roi: Rect?, radius: Int) {
 
 
         val t = Thread {
-
             analyzeIsBusy=true
             val copy: Mat
             try {
@@ -209,8 +343,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 // bimap mit der size des schildes erstelleb
 
                 bm = Bitmap.createBitmap(
-                    abs(radius * 2 + 20),
-                    abs(radius * 2 + 20),
+                    abs(radius * 2 ),
+                    abs(radius * 2 ),
                     Bitmap.Config.ARGB_8888)
 
                 Utils.matToBitmap(copy, bm)
@@ -222,43 +356,43 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 val image = InputImage.fromBitmap(bm!!, 0)
 
 
-                // zeigt alle label vom Kreisinhalt
-                labeler.process(image)
-                    .addOnSuccessListener { objRec ->
-                        for (i in objRec){
-                            println(i.text)
-                        }
-                    }
+             //   // zeigt alle label vom Kreisinhalt
+             //   labeler.process(image)
+             //       .addOnSuccessListener { objRec ->
+             //           for (i in objRec){
+             //               println(i.text)
+             //           }
+             //       }
 
 
                 textLeser.process(image).addOnSuccessListener { visionText ->
-                    var image = findViewById<ImageView>(R.id.imageView)
+
                         for (block in visionText.textBlocks) {
-                            if (signSpeed != block.text) {
-                                signSpeed = block.text
-                                if (signSpeed=="10") image.setImageResource(R.drawable.limit10)
-                                if (signSpeed=="20") image.setImageResource(R.drawable.limit20)
-                                if (signSpeed=="30") image.setImageResource(R.drawable.limit30)
-                                if (signSpeed=="40") image.setImageResource(R.drawable.limit40)
-                                if (signSpeed=="50") image.setImageResource(R.drawable.limit50)
-                                if (signSpeed=="60") image.setImageResource(R.drawable.limit60)
-                                if (signSpeed=="70") image.setImageResource(R.drawable.limit70)
-                                if (signSpeed=="80") image.setImageResource(R.drawable.limit80)
-                                if (signSpeed=="90") image.setImageResource(R.drawable.limit90)
-                                if (signSpeed=="100") image.setImageResource(R.drawable.limit100)
-                                if (signSpeed=="110") image.setImageResource(R.drawable.limit110)
-                                if (signSpeed=="120") image.setImageResource(R.drawable.limit120)
+                            if (signSpeedMybe != block.text) {
+                                signSpeedMybe = block.text
+                                if (signSpeedMybe=="10") speedSet(10)
+                                if (signSpeedMybe=="20") speedSet(20)
+                                if (signSpeedMybe=="30") speedSet(30)
+                                if (signSpeedMybe=="40") speedSet(40)
+                                if (signSpeedMybe=="50") speedSet(50)
+                                if (signSpeedMybe=="60") speedSet(60)
+                                if (signSpeedMybe=="70") speedSet(70)
+                                if (signSpeedMybe=="80") speedSet(80)
+                                if (signSpeedMybe=="90") speedSet(90)
+                                if (signSpeedMybe=="100") speedSet(100)
+                                if (signSpeedMybe=="110") speedSet(110)
+                                if (signSpeedMybe=="120") speedSet(120)
                             }
                         }
                     }
             }
         }
-
-
         val textThread = Thread(t)
         textThread.start()
         analyzeIsBusy=false
     }
+
+
 }
 
 
