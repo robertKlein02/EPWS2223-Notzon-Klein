@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.graphics.Camera
+import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -16,6 +17,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -56,6 +59,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
     private var speedSensorIstActive:Boolean=false
     private lateinit var zeichenBereich: Rect
+    var speed:Double=0.0
 
     private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
@@ -99,6 +103,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setMaxFrameSize(imgWidth,imgHeight)
 
 
+        //für test
+        speedSet(50)
 
         speedTextView=findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
@@ -114,6 +120,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             newSpeed ->
             isConnected.postValue(newSpeed)
             speedTextView.text="$newSpeed  km/h"
+            speed=newSpeed
+
 
         })
     }
@@ -144,7 +152,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         var mat: Mat? =null
         mat= cirleSuchenUndUmkreisen(inputFrame)
-
+        speedTextColo(signSpeedNow.toInt(),speed)
         return mat
     }
 
@@ -192,12 +200,13 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 )
                 Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
 
-                // Problem ! Wenn der Kreis über den Rand geht ist die Matrix nicht ganz gefüllt und die App stürzt ab!
+                // Problem !!!!
+                // Wenn Circle über den Rand geht -> crash
+
                 if (circleVec[0]-radius >= 20
                     && circleVec[0]+radius <= imgWidth-20
                     &&  circleVec[1]-radius >= 20
                     &&circleVec[1]+radius <= imgHeight-20){
-
 
                     cricleRead(inputRGB,zeichenBereich,radius)
                 }
@@ -219,6 +228,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     // Sicherheits Funktion
     fun speedSet(int: Int){
 
+        var sicherheitsWert=70
+
         var image = findViewById<ImageView>(R.id.imageView)
         var speedtoInt = signSpeedNow.toInt()
 
@@ -227,128 +238,117 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 image.setImageResource(R.drawable.limit10)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit10)
             }
         }
-
         if (int==20) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit20)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit20)
             }
         }
-
         if (int==30) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit30)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit30)
             }
         }
-
         if (int==40) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit40)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit40)
             }
         }
-
         if (int==50) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit50)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit50)
             }
         }
-
         if (int==60) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit60)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit60)
             }
         }
-
         if (int==70) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit70)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit70)
             }
         }
-
         if (int==80) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit80)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit80)
             }
         }
-
         if (int==90) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit90)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit90)
             }
         }
-
         if (int==100) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit100)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit100)
             }
         }
-
         if (int==110) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit110)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit110)
             }
         }
-
         if (int==120) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit120)
                 signSpeedNow="$int"
             }
-            if (abs( speedtoInt-int)<50){
+            if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit120)
             }
@@ -364,8 +364,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 copy = Mat(img, roi)
 
                 // bimap mit der size des schildes erstelleb
-
-
                 bm = Bitmap.createBitmap(
                     abs(radius * 2 + 20),
                     abs(radius * 2 + 20),
@@ -373,27 +371,21 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
                 Utils.matToBitmap(copy, bm)
 
-
-
-
             } catch (e: Exception) {
                 bm = null
             }
             if (bm != null) {
                 val image = InputImage.fromBitmap(bm!!, 0)
 
-
-             //   // zeigt alle label vom Kreisinhalt
-             //   labeler.process(image)
-             //       .addOnSuccessListener { objRec ->
-             //           for (i in objRec){
-             //               println(i.text)
-             //           }
-             //       }
-
+                  // zeigt alle label vom Kreisinhalt
+                  labeler.process(image)
+                      .addOnSuccessListener { objRec ->
+                          for (i in objRec){
+                              println(i.text)
+                          }
+                      }
 
                 textLeser.process(image).addOnSuccessListener { visionText ->
-
                         for (block in visionText.textBlocks) {
                             if (signSpeedMybe != block.text) {
                                 signSpeedMybe = block.text
@@ -414,7 +406,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     }
             }
         }
-
         t.run()
         analyzeIsBusy=false
     }
@@ -426,12 +417,17 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
 
         for (size in map.getOutputSizes(SurfaceTexture::class.java)) {
-            if (size.width<1000 && size.width>800) {
+            if (size.width<1500 && size.width>1000) {
                 imgHeight=size.height
                 imgWidth=size.width
             }
         }
+    }
 
+    fun speedTextColo(trafficSpeed: Int,speed: Double){
+        var text= findViewById<TextView>(R.id.speed)
+        if (speed<trafficSpeed) text.setTextColor(Color.GREEN)
+        if (speed>trafficSpeed) text.setTextColor(Color.RED)
     }
 }
 
