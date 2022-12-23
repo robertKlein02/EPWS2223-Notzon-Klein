@@ -4,6 +4,7 @@ package com.example.driveby.view
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
+import android.graphics.Camera
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -14,6 +15,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -30,12 +32,12 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import org.opencv.android.CameraBridgeViewBase
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
-import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.dnn.TextDetectionModel
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.google.mlkit.vision.label.ImageLabeler
+import org.opencv.android.CameraBridgeViewBase.*
+import org.opencv.android.FpsMeter
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
@@ -91,10 +93,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
         mOpenCvCameraView.enableFpsMeter()
-
-
-        imgWidth= 720
-        imgHeight= 540
+        sizeSetterFrame()
 
 
         mOpenCvCameraView.setMaxFrameSize(imgWidth,imgHeight)
@@ -199,7 +198,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     &&  circleVec[1]-radius >= 20
                     &&circleVec[1]+radius <= imgHeight-20){
 
-                    Log.i("xxx","test")
+
                     cricleRead(inputRGB,zeichenBereich,radius)
                 }
 
@@ -420,7 +419,23 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         analyzeIsBusy=false
     }
 
+    fun sizeSetterFrame(){
+        val manager = getSystemService(CAMERA_SERVICE) as CameraManager
+        val cameraId = manager.cameraIdList[0]
+        val characteristics = manager.getCameraCharacteristics(cameraId)
+        val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
 
+        for (size in map.getOutputSizes(SurfaceTexture::class.java)) {
+            if (size.width<1000 && size.width>800) {
+                imgHeight=size.height
+                imgWidth=size.width
+            }
+        }
+
+    }
 }
+
+
+
 
 
