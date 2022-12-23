@@ -44,6 +44,7 @@ import org.opencv.android.FpsMeter
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
+import kotlin.concurrent.thread
 import kotlin.math.abs
 
 
@@ -86,7 +87,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         setContentView(R.layout.activity_detector)
 
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(Receiver(viewmodel), IntentFilter("testSpeed"))
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(Receiver(viewmodel), IntentFilter("testSpeed"))
 
         textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
@@ -100,31 +102,31 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         sizeSetterFrame()
 
 
-        mOpenCvCameraView.setMaxFrameSize(imgWidth,imgHeight)
+        mOpenCvCameraView.setMaxFrameSize(imgWidth, imgHeight)
 
 
         //für test
-        speedSet(50)
+        // speedSet(50)
 
-        speedTextView=findViewById(R.id.speed)
+        speedTextView = findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
 
-        var i =Intent(this, SpeedSensor::class.java)
-        if (!speedSensorIstActive){
+        var i = Intent(this, SpeedSensor::class.java)
+        if (!speedSensorIstActive) {
             startService(i)
-            speedSensorIstActive=true
+            speedSensorIstActive = true
         }
 
-
-        isConnected.observe(this, Observer {
-            newSpeed ->
-            isConnected.postValue(newSpeed)
-            speedTextView.text="$newSpeed  km/h"
-            speed=newSpeed
-
-
-        })
+        Runnable {
+            isConnected.observe(this, Observer { newSpeed ->
+                isConnected.postValue(newSpeed)
+                speedTextView.text = "$newSpeed  km/h"
+                speed = newSpeed
+                speedTextColo(signSpeedNow.toInt(), speed)
+            })
+        }.run()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -152,7 +154,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         var mat: Mat? =null
         mat= cirleSuchenUndUmkreisen(inputFrame)
-        speedTextColo(signSpeedNow.toInt(),speed)
+
+
+
+
         return mat
     }
 
@@ -189,16 +194,15 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     circleVec[1]
                 )
 
-
                 val radius = circleVec[2].toInt()
-
                 val rectSideVal = radius * 2 + 20
 
                 zeichenBereich = Rect(
                     (center.x - radius - 10).toInt(),
                     (center.y - radius - 10).toInt(), rectSideVal, rectSideVal
                 )
-                Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
+
+                Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 5)
 
                 // Problem !!!!
                 // Wenn Circle über den Rand geht -> crash
