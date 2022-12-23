@@ -1,7 +1,0 @@
-Executable : /Users/robertklein/Library/Android/sdk/cmake/3.18.1/bin/ninja
-arguments : 
--C
-/Users/robertklein/Desktop/EPWS2223-Notzon-Al_Dakhel_Allah-Klein/opencv/.cxx/Debug/2z3j1e31/x86_64
-opencv_jni_shared
-jvmArgs : 
-

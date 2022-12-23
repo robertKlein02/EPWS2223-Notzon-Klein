@@ -4,6 +4,9 @@ package com.example.driveby.view
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
+import android.graphics.SurfaceTexture
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -40,8 +43,10 @@ import kotlin.math.abs
 
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
-
-
+    private var imgWidth = 0
+    private var imgHeight = 0
+    private var rows = 0
+    private var cols = 0
     private var bm: Bitmap? = null
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
@@ -86,7 +91,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
         mOpenCvCameraView.enableFpsMeter()
-        mOpenCvCameraView.setMaxFrameSize(1200,600)
+
+
+        imgWidth= 720
+        imgHeight= 540
+
+
+        mOpenCvCameraView.setMaxFrameSize(imgWidth,imgHeight)
+
 
 
         speedTextView=findViewById(R.id.speed)
@@ -120,9 +132,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
     override fun onCameraViewStarted(w: Int, h: Int) {
-
+        rows = h
+        cols = w
 
     }
+
 
     override fun onCameraViewStopped() {
 
@@ -161,23 +175,34 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
 
         if (circles.cols() > 0) {
-            for (x in 0 until Math.min(circles.cols(), 1)) {
+            for (x in 0 until Math.min(circles.cols(), 5)) {
                 val circleVec = circles[0, x] ?: break
                 val center = Point(
-                    circleVec[0].toInt().toDouble(),
-                    circleVec[1].toInt().toDouble()
+                    circleVec[0],
+                    circleVec[1]
                 )
+
+
                 val radius = circleVec[2].toInt()
 
-                val rectSideVal = radius * 2
+                val rectSideVal = radius * 2 + 20
 
                 zeichenBereich = Rect(
-                    (center.x - radius ).toInt(),
-                    (center.y - radius ).toInt(), rectSideVal, rectSideVal
+                    (center.x - radius - 10).toInt(),
+                    (center.y - radius - 10).toInt(), rectSideVal, rectSideVal
                 )
                 Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 2)
 
-                cricleRead(inputRGB,zeichenBereich,radius)
+                // Problem ! Wenn der Kreis über den Rand geht ist die Matrix nicht ganz gefüllt und die App stürzt ab!
+                if (circleVec[0]-radius >= 20
+                    && circleVec[0]+radius <= imgWidth-20
+                    &&  circleVec[1]-radius >= 20
+                    &&circleVec[1]+radius <= imgHeight-20){
+
+                    Log.i("xxx","test")
+                    cricleRead(inputRGB,zeichenBereich,radius)
+                }
+
 
                 circles.release()
             }
@@ -194,6 +219,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     // Sicherheits Funktion
     fun speedSet(int: Int){
+
         var image = findViewById<ImageView>(R.id.imageView)
         var speedtoInt = signSpeedNow.toInt()
 
@@ -332,9 +358,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     private fun cricleRead(img: Mat?, roi: Rect?, radius: Int) {
-
-
-        val t = Thread {
+        val t = Runnable {
             analyzeIsBusy=true
             val copy: Mat
             try {
@@ -342,12 +366,16 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
                 // bimap mit der size des schildes erstelleb
 
+
                 bm = Bitmap.createBitmap(
-                    abs(radius * 2 ),
-                    abs(radius * 2 ),
+                    abs(radius * 2 + 20),
+                    abs(radius * 2 + 20),
                     Bitmap.Config.ARGB_8888)
 
                 Utils.matToBitmap(copy, bm)
+
+
+
 
             } catch (e: Exception) {
                 bm = null
@@ -387,8 +415,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     }
             }
         }
-        val textThread = Thread(t)
-        textThread.start()
+
+        t.run()
         analyzeIsBusy=false
     }
 

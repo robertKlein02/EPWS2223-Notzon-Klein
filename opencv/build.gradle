@@ -90,7 +90,6 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'org.jetbrains.kotlin.android'
 
 def openCVersionName = "4.6.0"
 def openCVersionCode = ((4 * 100 + 6) * 100 + 0) * 10 + 0
@@ -98,12 +97,14 @@ def openCVersionCode = ((4 * 100 + 6) * 100 + 0) * 10 + 0
 println "OpenCV: " +openCVersionName + " " + project.buildscript.sourceFile
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 26
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 26
 
+        versionCode openCVersionCode
+        versionName openCVersionName
 
         externalNativeBuild {
             cmake {
@@ -146,5 +147,4 @@ android {
 }
 
 dependencies {
-implementation 'androidx.core:core-ktx:+'
 }

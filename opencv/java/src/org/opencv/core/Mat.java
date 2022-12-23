@@ -1,8 +1,5 @@
 package org.opencv.core;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.nio.ByteBuffer;
 
 // C++: class Mat
@@ -1181,11 +1178,6 @@ public class Mat {
         } else {
             throw new RuntimeException("Unsupported class parameter");
         }
-    }
-
-    @NotNull
-    public Object minus(@Nullable Mat gray) {
-        return null;
     }
 
     public static class Tuple2<T> {

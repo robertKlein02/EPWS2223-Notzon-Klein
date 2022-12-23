@@ -45,7 +45,7 @@ public class FpsMeter {
                 double fps = STEP * mFrequency / (time - mprevFrameTime);
                 mprevFrameTime = time;
                 if (mWidth != 0 && mHeight != 0)
-                    mStrfps =FPS_FORMAT.format(fps) + " FPS@" + Integer.valueOf(mWidth) + "x" + Integer.valueOf(mHeight);
+                    mStrfps = FPS_FORMAT.format(fps) + " FPS@" + Integer.valueOf(mWidth) + "x" + Integer.valueOf(mHeight);
                 else
                     mStrfps = FPS_FORMAT.format(fps) + " FPS";
                 Log.i(TAG, mStrfps);
@@ -53,9 +53,9 @@ public class FpsMeter {
         }
     }
 
-    public void setResolution(int width, int height) {   // durch 2 für eine bessere Laufzeit
-        mWidth = width/3;
-        mHeight = height/3;
+    public void setResolution(int width, int height) {
+        mWidth = width;
+        mHeight = height;
     }
 
     public void draw(Canvas canvas, float offsetx, float offsety) {
