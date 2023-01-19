@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity()  {
             startActivity(Intent(this, DetectorActivity::class.java))
         }
 
-
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
             findViewById<TextView>(R.id.Location).setTextColor(Color.GREEN)
             checkPremission(Manifest.permission.CAMERA,101)

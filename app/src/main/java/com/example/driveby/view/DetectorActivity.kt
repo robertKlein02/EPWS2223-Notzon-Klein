@@ -4,7 +4,7 @@ package com.example.driveby.view
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
-import android.graphics.Camera
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCharacteristics
@@ -16,9 +16,6 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -28,39 +25,41 @@ import com.example.driveby.Viewmodel
 import com.example.driveby.receiver.Receiver
 import com.example.driveby.sensor.SpeedSensor
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.objects.ObjectDetection
+import com.google.mlkit.vision.label.ImageLabeler
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.google.mlkit.vision.objects.ObjectDetector
-import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
+import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import org.opencv.android.CameraBridgeViewBase
-import org.opencv.dnn.TextDetectionModel
-import com.google.mlkit.vision.label.ImageLabeling
-import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
-import com.google.mlkit.vision.label.ImageLabeler
 import org.opencv.android.CameraBridgeViewBase.*
-import org.opencv.android.FpsMeter
 import org.opencv.android.Utils
 import org.opencv.core.*
+import org.opencv.dnn.TextDetectionModel
 import org.opencv.imgproc.Imgproc
-import kotlin.concurrent.thread
+import java.util.*
 import kotlin.math.abs
 
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
+    
     private var imgWidth = 0
     private var imgHeight = 0
     private var rows = 0
     private var cols = 0
     private var bm: Bitmap? = null
+    private var speed:Double=0.0
+
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
+
     private var viewmodel= Viewmodel()
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
     private var speedSensorIstActive:Boolean=false
     private lateinit var zeichenBereich: Rect
-    var speed:Double=0.0
+
 
     private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
@@ -70,9 +69,9 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
 
-
     private var analyzeIsBusy = false
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val a = Intent(Intent.ACTION_MAIN)
         a.addCategory(Intent.CATEGORY_HOME)
@@ -93,6 +92,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
+
         mOpenCvCameraView = findViewById(R.id.HelloOpenCvView)
         mOpenCvCameraView.setCameraPermissionGranted()
         mOpenCvCameraView.visibility = View.VISIBLE
@@ -105,13 +105,17 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         mOpenCvCameraView.setMaxFrameSize(imgWidth, imgHeight)
 
 
+
+
+
+
         //für test
         // speedSet(50)
 
         speedTextView = findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
 
-        var i = Intent(this, SpeedSensor::class.java)
+        val i = Intent(this, SpeedSensor::class.java)
         if (!speedSensorIstActive) {
             startService(i)
             speedSensorIstActive = true
@@ -130,7 +134,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
     override fun onDestroy() {
         super.onDestroy()
-        var i =Intent(this, SpeedSensor::class.java)
+        val i =Intent(this, SpeedSensor::class.java)
         
         if (speedSensorIstActive){
             stopService(i)
@@ -164,7 +168,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
 
-    fun cirleSuchenUndUmkreisen(inputFrame: CvCameraViewFrame): Mat {
+   private fun cirleSuchenUndUmkreisen(inputFrame: CvCameraViewFrame): Mat {
 
         val inputGrey = inputFrame.gray()
         val inputRGB = inputFrame.rgba()
@@ -187,7 +191,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         Log.i(TAG, "size: " + circles.cols() + ", " + circles.rows().toString())
 
         if (circles.cols() > 0) {
-            for (x in 0 until Math.min(circles.cols(), 5)) {
+            for (x in 0 until Math.min(circles.cols(), 1)) {
                 val circleVec = circles[0, x] ?: break
                 val center = Point(
                     circleVec[0],
@@ -202,15 +206,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     (center.y - radius - 10).toInt(), rectSideVal, rectSideVal
                 )
 
-                Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 5)
+                Imgproc.circle(inputRGB, center, radius, Scalar(0.0, 255.0, 0.0), 3)
 
                 // Problem !!!!
                 // Wenn Circle über den Rand geht -> crash
-
-                if (circleVec[0]-radius >= 20
-                    && circleVec[0]+radius <= imgWidth-20
-                    &&  circleVec[1]-radius >= 20
-                    &&circleVec[1]+radius <= imgHeight-20){
+                if (circleVec[0]-radius >= 10
+                    && circleVec[0]+radius <= imgWidth-10
+                    &&  circleVec[1]-radius >= 10
+                    &&circleVec[1]+radius <= imgHeight-10){
 
                     cricleRead(inputRGB,zeichenBereich,radius)
                 }
@@ -230,7 +233,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private var signSpeedNow = "0"
 
     // Sicherheits Funktion
-    fun speedSet(int: Int){
+   private fun speedSet(int: Int){
 
         var sicherheitsWert=70
 
@@ -336,6 +339,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit100)
             }
+            if(signSpeedNow.toInt()==10){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit110)
+            }
         }
         if (int==110) {
             if (signSpeedNow.toInt()==0){
@@ -343,6 +350,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 signSpeedNow="$int"
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit110)
+            }
+            if(signSpeedNow.toInt()==10){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit110)
             }
@@ -356,6 +367,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit120)
             }
+            if(signSpeedNow.toInt()==20){
+                signSpeedNow="$int"
+                image.setImageResource(R.drawable.limit120)
+            }
         }
 
     }
@@ -364,6 +379,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         val t = Runnable {
             analyzeIsBusy=true
             val copy: Mat
+
             try {
                 copy = Mat(img, roi)
 
@@ -374,6 +390,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                     Bitmap.Config.ARGB_8888)
 
                 Utils.matToBitmap(copy, bm)
+                compare(img,radius)
 
             } catch (e: Exception) {
                 bm = null
@@ -382,12 +399,12 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 val image = InputImage.fromBitmap(bm!!, 0)
 
                   // zeigt alle label vom Kreisinhalt
-                  labeler.process(image)
-                      .addOnSuccessListener { objRec ->
-                          for (i in objRec){
-                              println(i.text)
-                          }
-                      }
+                labeler.process(image)
+                    .addOnSuccessListener { objRec ->
+                        for (i in objRec){
+                            Log.i("TEST", i.text.toString())
+                        }
+                    }
 
                 textLeser.process(image).addOnSuccessListener { visionText ->
                         for (block in visionText.textBlocks) {
@@ -414,25 +431,98 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         analyzeIsBusy=false
     }
 
-    fun sizeSetterFrame(){
+   private fun sizeSetterFrame(){
         val manager = getSystemService(CAMERA_SERVICE) as CameraManager
         val cameraId = manager.cameraIdList[0]
         val characteristics = manager.getCameraCharacteristics(cameraId)
         val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
 
         for (size in map.getOutputSizes(SurfaceTexture::class.java)) {
-            if (size.width<1500 && size.width>1000) {
+            if (size.width<1800 && size.width>1200) {
                 imgHeight=size.height
                 imgWidth=size.width
             }
         }
     }
 
-    fun speedTextColo(trafficSpeed: Int,speed: Double){
+   private fun speedTextColo(trafficSpeed: Int,speed: Double){
         var text= findViewById<TextView>(R.id.speed)
         if (speed<trafficSpeed) text.setTextColor(Color.GREEN)
         if (speed>trafficSpeed) text.setTextColor(Color.RED)
     }
+
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //
+    // Test vergleicher von Bitmap !!!!!!!!!!!!!!!
+    //
+    // by Robert
+    //
+    private fun compare(b1: Mat?,radius: Int): Int {
+        var percentCompare = 0
+
+        var speed10 = getBitmap(R.drawable.limit10, radius)
+        var speed20 = getBitmap(R.drawable.limit20, radius)
+        var speed30 = getBitmap(R.drawable.limit30, radius)
+        var speed40 = getBitmap(R.drawable.limit40, radius)
+        var speed50 = getBitmap(R.drawable.limit50, radius)
+        var speed60 = getBitmap(R.drawable.limit60, radius)
+        var speed70 = getBitmap(R.drawable.limit70, radius)
+        var speed80 = getBitmap(R.drawable.limit80, radius)
+        var speed90 = getBitmap(R.drawable.limit90, radius)
+        var speed100 = getBitmap(R.drawable.limit100, radius)
+        var speed110 = getBitmap(R.drawable.limit110, radius)
+        var speed120 = getBitmap(R.drawable.limit120, radius)
+
+
+
+        var list = listOf<Bitmap?>(
+            speed10,
+            speed20,
+            speed30,
+            speed40,
+            speed50,
+            speed60,
+            speed70,
+            speed80,
+            speed90,
+            speed100,
+            speed110,
+            speed120
+        )
+
+
+
+        var isSame = false
+
+
+
+
+
+
+
+
+        return 10
+    }
+
+    private fun getBitmap(drawableRes: Int,radius: Int): Bitmap? {
+        val drawable = resources.getDrawable(drawableRes)
+        val canvas = Canvas()
+        val bitmap = Bitmap.createBitmap(
+            abs(radius * 2 + 20),
+            abs(radius * 2 + 20),
+            Bitmap.Config.ARGB_8888
+        )
+        canvas.setBitmap(bitmap)
+        drawable.setBounds(0, 0, radius, radius)
+        drawable.draw(canvas)
+        return bitmap
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!! Test Ende !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 }
 
 
