@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_main)
 
 
+
         // Überspringen wenn permission true ist
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){

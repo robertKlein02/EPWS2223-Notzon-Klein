@@ -22,14 +22,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.driveby.MyApplication.Companion.TAG
 import com.example.driveby.R
 import com.example.driveby.Viewmodel
-import com.example.driveby.receiver.Receiver
 import com.example.driveby.sensor.SpeedSensor
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.google.mlkit.vision.objects.ObjectDetector
-import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
@@ -86,8 +84,9 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         setContentView(R.layout.activity_detector)
 
 
+
         LocalBroadcastManager.getInstance(this)
-            .registerReceiver(Receiver(viewmodel), IntentFilter("testSpeed"))
+            .registerReceiver(viewmodel.Receiver(), IntentFilter("testSpeed"))
 
         textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
@@ -103,11 +102,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
         mOpenCvCameraView.setMaxFrameSize(imgWidth, imgHeight)
-
-
-
-
-
 
         //für test
         // speedSet(50)
@@ -235,10 +229,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     // Sicherheits Funktion
    private fun speedSet(int: Int){
 
-        var sicherheitsWert=70
+        val sicherheitsWert=70
 
-        var image = findViewById<ImageView>(R.id.imageView)
-        var speedtoInt = signSpeedNow.toInt()
+        val image = findViewById<ImageView>(R.id.imageView)
+        val speedtoInt = signSpeedNow.toInt()
 
         if (int==10) {
             if (signSpeedNow.toInt()==0) {
@@ -446,7 +440,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
    private fun speedTextColo(trafficSpeed: Int,speed: Double){
-        var text= findViewById<TextView>(R.id.speed)
+        val text= findViewById<TextView>(R.id.speed)
         if (speed<trafficSpeed) text.setTextColor(Color.GREEN)
         if (speed>trafficSpeed) text.setTextColor(Color.RED)
     }
@@ -461,18 +455,18 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private fun compare(b1: Mat?,radius: Int): Int {
         var percentCompare = 0
 
-        var speed10 = getBitmap(R.drawable.limit10, radius)
-        var speed20 = getBitmap(R.drawable.limit20, radius)
-        var speed30 = getBitmap(R.drawable.limit30, radius)
-        var speed40 = getBitmap(R.drawable.limit40, radius)
-        var speed50 = getBitmap(R.drawable.limit50, radius)
-        var speed60 = getBitmap(R.drawable.limit60, radius)
-        var speed70 = getBitmap(R.drawable.limit70, radius)
-        var speed80 = getBitmap(R.drawable.limit80, radius)
-        var speed90 = getBitmap(R.drawable.limit90, radius)
-        var speed100 = getBitmap(R.drawable.limit100, radius)
-        var speed110 = getBitmap(R.drawable.limit110, radius)
-        var speed120 = getBitmap(R.drawable.limit120, radius)
+        val speed10 = getBitmap(R.drawable.limit10, radius)
+        val speed20 = getBitmap(R.drawable.limit20, radius)
+        val speed30 = getBitmap(R.drawable.limit30, radius)
+        val speed40 = getBitmap(R.drawable.limit40, radius)
+        val speed50 = getBitmap(R.drawable.limit50, radius)
+        val speed60 = getBitmap(R.drawable.limit60, radius)
+        val speed70 = getBitmap(R.drawable.limit70, radius)
+        val speed80 = getBitmap(R.drawable.limit80, radius)
+        val speed90 = getBitmap(R.drawable.limit90, radius)
+        val speed100 = getBitmap(R.drawable.limit100, radius)
+        val speed110 = getBitmap(R.drawable.limit110, radius)
+        val speed120 = getBitmap(R.drawable.limit120, radius)
 
 
 
@@ -490,16 +484,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             speed110,
             speed120
         )
-
-
-
         var isSame = false
-
-
-
-
-
-
 
 
         return 10
