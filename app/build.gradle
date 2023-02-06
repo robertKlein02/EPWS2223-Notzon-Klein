@@ -55,6 +55,10 @@ dependencies {
     implementation 'com.google.mlkit:image-labeling:17.0.7'
     implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.8'
 
+    // FireBase
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     //Location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
