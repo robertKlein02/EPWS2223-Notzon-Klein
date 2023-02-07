@@ -141,11 +141,11 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
             if (soundIstActive){
                 soundIstActive=false
                 Log.i("active","true")
-                sound.setBackgroundResource(R.drawable.volume_on_white_24dp)
+                sound.setBackgroundResource(R.drawable.volume_off_white_24dp)
             }else{
                 soundIstActive=true
                 Log.i("active","false")
-                sound.setBackgroundResource(R.drawable.volume_off_white_24dp)
+                sound.setBackgroundResource(R.drawable.volume_on_white_24dp)
             }
 
         }
@@ -480,7 +480,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     }
 
     fun speedLimitSpeak(int: Int){
-        if(!soundIstActive){
+        if(soundIstActive){
             ttsSpeed.speak(
                 "$int Kilometer die Stunde",
                 TextToSpeech.QUEUE_FLUSH,
