@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.example.driveby.model.Speedlimit
 import java.util.*
 
-class Viewmodel:ViewModel() {
+class ViewmodelSpeedLi:ViewModel() {
 
     inner class Receiver(): BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
