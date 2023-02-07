@@ -3,13 +3,12 @@ package com.example.driveby
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.driveby.model.Speedlimit
 import java.util.*
 
-class ViewmodelSpeedLi:ViewModel() {
+class ViewmodelSpeedLimit:ViewModel() {
 
     inner class Receiver(): BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

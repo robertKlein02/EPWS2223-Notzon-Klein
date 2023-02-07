@@ -1,6 +1,7 @@
 package com.example.driveby.view
 
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
@@ -10,9 +11,11 @@ import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.driveby.MyApplication.Companion.TAG
 import com.example.driveby.R
-import com.example.driveby.Viewmodel
+import com.example.driveby.ViewmodelSpeedLimit
 import com.example.driveby.sensor.SpeedSensor
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
@@ -41,7 +44,8 @@ import java.util.*
 import kotlin.math.abs
 
 
-class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
+class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
+    TextToSpeech.OnInitListener {
     
     private var imgWidth = 0
     private var imgHeight = 0
@@ -50,10 +54,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private var bm: Bitmap? = null
     private var speed:Double=0.0
 
+    private var soundIstActive:Boolean = false
+
+    private lateinit var ttsSpeed: TextToSpeech
+
     private lateinit var mOpenCvCameraView: CameraBridgeViewBase
     private lateinit var speedTextView:TextView
 
-    private var viewmodel= Viewmodel()
+    private var viewmodel= ViewmodelSpeedLimit()
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
     private var speedSensorIstActive:Boolean=false
     private lateinit var zeichenBereich: Rect
@@ -63,7 +71,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var textLeser: TextRecognizer
     private lateinit var objRecognizer: ObjectDetector
     private lateinit var labeler: ImageLabeler
-
+    private lateinit var sound :ImageButton
 
 
 
@@ -85,6 +93,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
 
 
 
+        soundIstActive=true
+
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(viewmodel.Receiver(), IntentFilter("testSpeed"))
 
@@ -92,6 +102,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
 
+        ttsSpeed = TextToSpeech(this, this)
+        sound =findViewById(R.id.imageButton)
         mOpenCvCameraView = findViewById(R.id.HelloOpenCvView)
         mOpenCvCameraView.setCameraPermissionGranted()
         mOpenCvCameraView.visibility = View.VISIBLE
@@ -123,6 +135,20 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                 speedTextColo(signSpeedNow.toInt(), speed)
             })
         }.run()
+
+
+        sound.setOnClickListener {
+            if (soundIstActive){
+                soundIstActive=false
+                Log.i("active","true")
+                sound.setBackgroundResource(R.drawable.volume_on_white_24dp)
+            }else{
+                soundIstActive=true
+                Log.i("active","false")
+                sound.setBackgroundResource(R.drawable.volume_off_white_24dp)
+            }
+
+        }
     }
 
 
@@ -238,132 +264,160 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
             if (signSpeedNow.toInt()==0) {
                 image.setImageResource(R.drawable.limit10)
                 signSpeedNow="$int"
+                speedLimitSpeak(10)
+
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit10)
+                speedLimitSpeak(10)
             }
         }
         if (int==20) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit20)
                 signSpeedNow="$int"
+                speedLimitSpeak(20)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit20)
+                speedLimitSpeak(20)
             }
         }
         if (int==30) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit30)
                 signSpeedNow="$int"
+                speedLimitSpeak(30)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit30)
+                speedLimitSpeak(30)
             }
         }
         if (int==40) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit40)
                 signSpeedNow="$int"
+                speedLimitSpeak(40)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit40)
+                speedLimitSpeak(40)
             }
         }
         if (int==50) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit50)
                 signSpeedNow="$int"
+                speedLimitSpeak(50)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit50)
+                speedLimitSpeak(50)
             }
         }
         if (int==60) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit60)
                 signSpeedNow="$int"
+                speedLimitSpeak(60)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit60)
+                speedLimitSpeak(60)
             }
         }
         if (int==70) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit70)
                 signSpeedNow="$int"
+                speedLimitSpeak(70)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit70)
+                speedLimitSpeak(70)
             }
         }
         if (int==80) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit80)
                 signSpeedNow="$int"
+                speedLimitSpeak(80)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit80)
+                speedLimitSpeak(80)
             }
         }
         if (int==90) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit90)
                 signSpeedNow="$int"
+                speedLimitSpeak(90)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit90)
+                speedLimitSpeak(90)
             }
         }
         if (int==100) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit100)
                 signSpeedNow="$int"
+                speedLimitSpeak(100)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit100)
+                speedLimitSpeak(100)
             }
             if(signSpeedNow.toInt()==10){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit110)
+                speedLimitSpeak(100)
             }
         }
         if (int==110) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit110)
                 signSpeedNow="$int"
+                speedLimitSpeak(110)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit110)
+                speedLimitSpeak(110)
             }
             if(signSpeedNow.toInt()==10){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit110)
+                speedLimitSpeak(110)
             }
         }
         if (int==120) {
             if (signSpeedNow.toInt()==0){
                 image.setImageResource(R.drawable.limit120)
                 signSpeedNow="$int"
+                speedLimitSpeak(120)
             }
             if (abs( speedtoInt-int)<sicherheitsWert){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit120)
+                speedLimitSpeak(120)
             }
             if(signSpeedNow.toInt()==20){
                 signSpeedNow="$int"
                 image.setImageResource(R.drawable.limit120)
+                speedLimitSpeak(120)
             }
         }
 
@@ -418,11 +472,22 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
                                 if (signSpeedMybe=="120") speedSet(120)
                             }
                         }
-                    }
+                }
             }
         }
         t.run()
         analyzeIsBusy=false
+    }
+
+    fun speedLimitSpeak(int: Int){
+        if(!soundIstActive){
+            ttsSpeed.speak(
+                "$int Kilometer die Stunde",
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                "Speed Detected"
+            )
+        }
     }
 
    private fun sizeSetterFrame(){
@@ -445,13 +510,14 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         if (speed>trafficSpeed) text.setTextColor(Color.RED)
     }
 
-
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //
     // Test vergleicher von Bitmap !!!!!!!!!!!!!!!
     //
     // by Robert
     //
+
+
     private fun compare(b1: Mat?,radius: Int): Int {
         var percentCompare = 0
 
@@ -502,6 +568,10 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2 {
         drawable.setBounds(0, 0, radius, radius)
         drawable.draw(canvas)
         return bitmap
+    }
+
+    override fun onInit(status: Int) {
+        ttsSpeed.language = Locale.GERMANY
     }
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
