@@ -26,6 +26,10 @@ import com.example.driveby.MyApplication.Companion.TAG
 import com.example.driveby.R
 import com.example.driveby.ViewmodelSpeedLimit
 import com.example.driveby.sensor.SpeedSensor
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
@@ -73,6 +77,9 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     private lateinit var labeler: ImageLabeler
     private lateinit var sound :ImageButton
 
+    val database = Firebase.database
+    val myRef = database.getReference("message")
+
 
 
     private var analyzeIsBusy = false
@@ -88,6 +95,9 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        myRef.setValue("Hello, World!")
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_detector)
 
@@ -138,6 +148,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
 
 
         sound.setOnClickListener {
+
             if (soundIstActive){
                 soundIstActive=false
                 Log.i("active","true")

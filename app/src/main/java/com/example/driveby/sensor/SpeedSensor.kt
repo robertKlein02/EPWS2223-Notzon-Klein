@@ -140,7 +140,7 @@ class SpeedSensor:Service() {
 
     companion object {
         private const val TAG = "LocationService"
-        private const val LOCATION_INTERVAL = 1500
+        private const val LOCATION_INTERVAL = 2500
         private const val LOCATION_DISTANCE = 0
     }
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "525931598907",
+    "firebase_url": "https://driveby-8b753-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "driveby-8b753",
+    "storage_bucket": "driveby-8b753.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525931598907:android:1ea18eb0b595875d5fb81e",
+        "android_client_info": {
+          "package_name": "com.example.driveby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525931598907-liggmqv44j4q5ngiiei6vv8ouroge3vk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuhh_nlPOqvQjsyOWOmjaUmFcWJOBAA6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525931598907-liggmqv44j4q5ngiiei6vv8ouroge3vk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
