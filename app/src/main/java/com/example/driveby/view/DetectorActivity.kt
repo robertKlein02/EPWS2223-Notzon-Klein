@@ -10,7 +10,9 @@ import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
+import android.media.ToneGenerator
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
@@ -50,13 +52,19 @@ import kotlin.math.abs
 
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     TextToSpeech.OnInitListener {
-    
+
+    private lateinit var timer: CountDownTimer
     private var imgWidth = 0
     private var imgHeight = 0
     private var rows = 0
     private var cols = 0
     private var bm: Bitmap? = null
     private var speed:Double=0.0
+
+    private var timerIstActive=false
+
+    private var signSpeedMybe = "0"
+    private var signSpeedNow = "0"
 
     private var soundIstActive:Boolean = false
 
@@ -96,7 +104,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        myRef.setValue("Hello, World!")
+
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_detector)
@@ -122,6 +130,16 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
         mOpenCvCameraView.enableFpsMeter()
         sizeSetterFrame()
 
+        timer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                println("test")
+            }
+
+            override fun onFinish() {
+                myRef.setValue("Geschwindigkeit verändert" )
+            }
+        }
+
 
         mOpenCvCameraView.setMaxFrameSize(imgWidth, imgHeight)
 
@@ -143,12 +161,22 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
                 speedTextView.text = "$newSpeed  km/h"
                 speed = newSpeed
                 speedTextColo(signSpeedNow.toInt(), speed)
+                if (abs(signSpeedNow.toDouble()-newSpeed)>8 && !timerIstActive){
+                    timerIstActive=true
+                    timer.start()
+
+                }
+                if (abs(signSpeedNow.toDouble()-newSpeed)<8 && timerIstActive){
+                    timerIstActive=false
+                    timer.cancel()
+
+                }
+
             })
         }.run()
 
 
         sound.setOnClickListener {
-
             if (soundIstActive){
                 soundIstActive=false
                 Log.i("active","true")
@@ -260,8 +288,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
 
 
 
-    private var signSpeedMybe = "0"
-    private var signSpeedNow = "0"
+
 
     // Sicherheits Funktion
    private fun speedSet(int: Int){
@@ -584,6 +611,8 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     override fun onInit(status: Int) {
         ttsSpeed.language = Locale.GERMANY
     }
+
+
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // !!!!!!!!!!!!!!!!!!!!!!!! Test Ende !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
