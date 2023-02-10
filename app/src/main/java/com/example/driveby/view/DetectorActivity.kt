@@ -53,44 +53,37 @@ import kotlin.math.abs
 class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     TextToSpeech.OnInitListener {
 
-    private lateinit var timer: CountDownTimer
     private var imgWidth = 0
     private var imgHeight = 0
     private var rows = 0
     private var cols = 0
-    private var bm: Bitmap? = null
     private var speed:Double=0.0
+    private var bm: Bitmap? = null
+
 
     private var timerIstActive=false
+    private var soundIstActive = true
+    private var analyzeIsBusy = false
 
     private var signSpeedMybe = "0"
     private var signSpeedNow = "0"
 
-    private var soundIstActive:Boolean = false
-
-    private lateinit var ttsSpeed: TextToSpeech
-
-    private lateinit var mOpenCvCameraView: CameraBridgeViewBase
-    private lateinit var speedTextView:TextView
-
     private var viewmodel= ViewmodelSpeedLimit()
     private val isConnected:MutableLiveData<Double> = viewmodel.speed
-    private var speedSensorIstActive:Boolean=false
+
+    private lateinit var timer: CountDownTimer
+    private lateinit var ttsSpeed: TextToSpeech
+    private lateinit var mOpenCvCameraView: CameraBridgeViewBase
+    private lateinit var speedTextView:TextView
     private lateinit var zeichenBereich: Rect
 
-
-    private lateinit var textOpen: TextDetectionModel
     private lateinit var textLeser: TextRecognizer
-    private lateinit var objRecognizer: ObjectDetector
     private lateinit var labeler: ImageLabeler
     private lateinit var sound :ImageButton
 
     val database = Firebase.database
-    val myRef = database.getReference("message")
+    val myRef = database.getReference("SpeedChange")
 
-
-
-    private var analyzeIsBusy = false
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
@@ -104,44 +97,29 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        setContentView(R.layout.activity_detector)
-
-
-
-        soundIstActive=true
-
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(viewmodel.Receiver(), IntentFilter("testSpeed"))
 
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        startService(Intent(this,SpeedSensor::class.java))
+        setContentView(R.layout.activity_detector)
+        sizeSetterFrame()
+
         textLeser = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
-
-
         ttsSpeed = TextToSpeech(this, this)
         sound =findViewById(R.id.imageButton)
+
+
+
         mOpenCvCameraView = findViewById(R.id.HelloOpenCvView)
         mOpenCvCameraView.setCameraPermissionGranted()
         mOpenCvCameraView.visibility = View.VISIBLE
         mOpenCvCameraView.setCvCameraViewListener(this)
         mOpenCvCameraView.enableView()
         mOpenCvCameraView.enableFpsMeter()
-        sizeSetterFrame()
-
-        timer = object : CountDownTimer(10000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                println("test")
-            }
-
-            override fun onFinish() {
-                myRef.setValue("Geschwindigkeit verändert" )
-            }
-        }
-
-
         mOpenCvCameraView.setMaxFrameSize(imgWidth, imgHeight)
+
 
         //für test
         // speedSet(50)
@@ -149,11 +127,6 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
         speedTextView = findViewById(R.id.speed)
         speedTextView.setText(viewmodel.speed.value.toString())
 
-        val i = Intent(this, SpeedSensor::class.java)
-        if (!speedSensorIstActive) {
-            startService(i)
-            speedSensorIstActive = true
-        }
 
         Runnable {
             isConnected.observe(this, Observer { newSpeed ->
@@ -188,17 +161,25 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
             }
 
         }
+
+        timer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                println("test")
+            }
+
+            override fun onFinish() {
+                myRef.setValue("Geschwindigkeit verändert" )
+            }
+        }
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        val i =Intent(this, SpeedSensor::class.java)
-        
-        if (speedSensorIstActive){
-            stopService(i)
-            speedSensorIstActive=false
-        }
+        stopService(Intent(this,SpeedSensor::class.java))
+
+
+
     }
 
 
