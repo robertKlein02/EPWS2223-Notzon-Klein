@@ -61,7 +61,7 @@ class DetectorActivity : AppCompatActivity(), CvCameraViewListener2,
     private var bm: Bitmap? = null
 
 
-    private var timerIstActive=false
+    private var timerIstActive = false
     private var soundIstActive = true
     private var analyzeIsBusy = false
 
